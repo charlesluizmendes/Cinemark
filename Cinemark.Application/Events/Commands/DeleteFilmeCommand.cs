@@ -5,6 +5,6 @@ namespace Cinemark.Application.Events.Commands
 {
     public class DeleteFilmeCommand : IRequest<Filme>
     {
-        public Filme Filme { get; set; }
+        public Filme Filme { get; set; } = null!;
     }
 }
