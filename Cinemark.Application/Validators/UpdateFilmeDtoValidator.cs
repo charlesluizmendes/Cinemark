@@ -1,11 +1,11 @@
-﻿using Cinemark.Domain.Entities;
+﻿using Cinemark.Application.Dto;
 using FluentValidation;
 
-namespace Cinemark.Domain.Validators
+namespace Cinemark.Application.Validators
 {
-    public class FilmeValidator : AbstractValidator<Filme>
+    public class UpdateFilmeDtoValidator : AbstractValidator<UpdateFilmeDto>
     {
-        public FilmeValidator()
+        public UpdateFilmeDtoValidator()
         {
             RuleFor(x => x.Nome)
                 .NotEmpty().NotNull()

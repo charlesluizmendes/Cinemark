@@ -1,8 +1,7 @@
-﻿namespace Cinemark.Domain.Entities
+﻿namespace Cinemark.Application.Dto
 {
-    public class Filme
+    public class CreateFilmeDto
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
         public string Categoria { get; set; }
         public int FaixaEtaria { get; set; }
