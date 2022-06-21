@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D48714A4-5AB8-4D2E-AA4D-01C72270874E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D5925598-117B-484F-AF17-543253F06106}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Services", "01 - Services", "{F6E69D36-6231-4FF2-B7AF-9EAACD5843FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Application", "02 - Application", "{262ACD44-20CF-44FE-9614-1BFE17ECECEE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Domain", "03 - Domain", "{89DAD259-FE9A-46FE-9DCE-3E8F084CADAA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 - Infrastructure", "04 - Infrastructure", "{FA5E661E-A1FF-4A74-B8B2-9EFD12DEAA1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Triscal.Unit.Tests", "test\Triscal.Unit.Tests\Triscal.Unit.Tests.csproj", "{FE90776C-0ED4-4BBD-B9C5-7373BAF34B65}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE90776C-0ED4-4BBD-B9C5-7373BAF34B65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE90776C-0ED4-4BBD-B9C5-7373BAF34B65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE90776C-0ED4-4BBD-B9C5-7373BAF34B65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE90776C-0ED4-4BBD-B9C5-7373BAF34B65}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F6E69D36-6231-4FF2-B7AF-9EAACD5843FA} = {D48714A4-5AB8-4D2E-AA4D-01C72270874E}
+		{262ACD44-20CF-44FE-9614-1BFE17ECECEE} = {D48714A4-5AB8-4D2E-AA4D-01C72270874E}
+		{89DAD259-FE9A-46FE-9DCE-3E8F084CADAA} = {D48714A4-5AB8-4D2E-AA4D-01C72270874E}
+		{FA5E661E-A1FF-4A74-B8B2-9EFD12DEAA1A} = {D48714A4-5AB8-4D2E-AA4D-01C72270874E}
+		{FE90776C-0ED4-4BBD-B9C5-7373BAF34B65} = {D5925598-117B-484F-AF17-543253F06106}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {62912C2F-AA65-4484-8E0C-590005C457A6}
+	EndGlobalSection
+EndGlobal
