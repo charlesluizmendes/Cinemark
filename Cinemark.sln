@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinemark.Unit.Tests", "Cine
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinemark.Service.Api", "Cinemark.Service.Api\Cinemark.Service.Api.csproj", "{0660F033-1FFC-43EC-B4D9-6D69558A950E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinemark.Service.Worker", "Cinemark.Service.Worker\Cinemark.Service.Worker.csproj", "{DAD5F46F-0BF2-409B-9A3D-D5DA5BEDF651}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0660F033-1FFC-43EC-B4D9-6D69558A950E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0660F033-1FFC-43EC-B4D9-6D69558A950E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0660F033-1FFC-43EC-B4D9-6D69558A950E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAD5F46F-0BF2-409B-9A3D-D5DA5BEDF651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAD5F46F-0BF2-409B-9A3D-D5DA5BEDF651}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAD5F46F-0BF2-409B-9A3D-D5DA5BEDF651}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAD5F46F-0BF2-409B-9A3D-D5DA5BEDF651}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 		{FA5E661E-A1FF-4A74-B8B2-9EFD12DEAA1A} = {D48714A4-5AB8-4D2E-AA4D-01C72270874E}
 		{71169357-F9B8-4D70-9912-306E24CEFF14} = {D5925598-117B-484F-AF17-543253F06106}
 		{0660F033-1FFC-43EC-B4D9-6D69558A950E} = {F6E69D36-6231-4FF2-B7AF-9EAACD5843FA}
+		{DAD5F46F-0BF2-409B-9A3D-D5DA5BEDF651} = {F6E69D36-6231-4FF2-B7AF-9EAACD5843FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {62912C2F-AA65-4484-8E0C-590005C457A6}
