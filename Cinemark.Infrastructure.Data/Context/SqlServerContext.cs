@@ -12,12 +12,14 @@ namespace Cinemark.Infrastructure.Data.Context
         }
 
         public virtual DbSet<Filme> Filme { get; set; } = null!;
+        public virtual DbSet<Usuario> Usuario { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.Entity<Filme>(new FilmeMap().Configure);
+            builder.Entity<Usuario>(new UsuarioMap().Configure);
         }
     }
 }
