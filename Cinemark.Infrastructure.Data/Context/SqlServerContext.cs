@@ -2,11 +2,11 @@
 using Cinemark.Infrastructure.Data.Mapping.SqlServer;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cinemark.Infrastructure.Data.Context.SqlServer
+namespace Cinemark.Infrastructure.Data.Context
 {
-    public class CinemarkContext : DbContext, IDisposable
+    public class SqlServerContext : DbContext, IDisposable
     {
-        public CinemarkContext(DbContextOptions<CinemarkContext> options)
+        public SqlServerContext(DbContextOptions<SqlServerContext> options)
             : base(options)
         {
         }

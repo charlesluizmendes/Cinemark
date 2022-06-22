@@ -1,6 +1,5 @@
 ﻿using Cinemark.Domain.Interfaces.Repositories;
-using Cinemark.Infrastructure.Data.Context.Mongo;
-using Cinemark.Infrastructure.Data.Context.SqlServer;
+using Cinemark.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 
@@ -8,15 +7,15 @@ namespace Cinemark.Infrastructure.Data.Repositories
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        private readonly Context.Mongo.CinemarkContext _mongoContext;
-        private IMongoCollection<T> _dbMongoCollection;
-        private readonly Context.SqlServer.CinemarkContext _sqlServerContext;
+        private readonly MongoContext _mongoContext;
+        private IMongoCollection<T> _mongoCollection;
+        private readonly SqlServerContext _sqlServerContext;
 
-        public BaseRepository(Context.Mongo.CinemarkContext mongoContext,
-            Context.SqlServer.CinemarkContext sqlServerContext)
+        public BaseRepository(MongoContext mongoContext,
+            SqlServerContext sqlServerContext)
         {
             _mongoContext = mongoContext;
-            _dbMongoCollection = _mongoContext.GetCollection<T>(typeof(T).Name);
+            _mongoCollection = _mongoContext.GetCollection<T>(typeof(T).Name);
             _sqlServerContext = sqlServerContext;
         }
 
@@ -24,7 +23,7 @@ namespace Cinemark.Infrastructure.Data.Repositories
         {
             try
             {
-                return await _dbMongoCollection.Find(Builders<T>.Filter.Empty).ToListAsync();
+                return await _mongoCollection.Find(Builders<T>.Filter.Empty).ToListAsync();
             }
             catch (Exception)
             {
@@ -36,7 +35,7 @@ namespace Cinemark.Infrastructure.Data.Repositories
         {
             try
             {
-                return await _dbMongoCollection.Find(Builders<T>.Filter.Eq("_id", id)).FirstOrDefaultAsync();
+                return await _mongoCollection.Find(Builders<T>.Filter.Eq("_id", id)).FirstOrDefaultAsync();
             }
             catch (Exception)
             {

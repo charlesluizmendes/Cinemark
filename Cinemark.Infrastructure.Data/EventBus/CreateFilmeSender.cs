@@ -1,5 +1,6 @@
 ﻿using Cinemark.Domain.Entities;
 using Cinemark.Domain.Interfaces.EventBus;
+using Cinemark.Infrastructure.Data.EventBus.Common;
 using Cinemark.Infrastructure.Data.EventBus.Option;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -37,7 +38,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
                 using (var connection = factory.CreateConnection())
                 using (var channel = connection.CreateModel())
                 {
-                    channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+                    channel.QueueDeclare(queue: _queueName + EventBusConstants.QUEUE_CREATED, durable: false, exclusive: false, autoDelete: false, arguments: null);
 
                     var json = JsonConvert.SerializeObject(filme);
                     var body = Encoding.UTF8.GetBytes(json);

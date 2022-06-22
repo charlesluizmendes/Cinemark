@@ -1,5 +1,6 @@
 ﻿using Cinemark.Domain.Entities;
 using Cinemark.Domain.Interfaces.Repositories;
+using Cinemark.Infrastructure.Data.EventBus.Common;
 using Cinemark.Infrastructure.Data.EventBus.Option;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
@@ -49,7 +50,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
             {
                 _connection = factory.CreateConnection();
                 _channel = _connection.CreateModel();
-                _channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+                _channel.QueueDeclare(queue: _queueName + EventBusConstants.QUEUE_CREATED, durable: false, exclusive: false, autoDelete: false, arguments: null);
             }
             catch (Exception ex)
             {
