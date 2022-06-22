@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Cinemark.Application.Dto;
-using Cinemark.Domain.Entities;
+using Cinemark.Domain.Models;
 
 namespace Cinemark.Application.AutoMapper
 {
@@ -8,6 +8,7 @@ namespace Cinemark.Application.AutoMapper
     {
         public DtoToEntityMappingProfile()
         {
+            CreateMap<GetFilmeByIdDto, Filme>();
             CreateMap<CreateFilmeDto, Filme>();
             CreateMap<UpdateFilmeDto, Filme>();
             CreateMap<DeleteFilmeDto, Filme>();

@@ -7,6 +7,10 @@ namespace Cinemark.Application.Validators
     {
         public UpdateFilmeDtoValidator()
         {
+            RuleFor(x => x.Id)
+                .NotEmpty().NotNull()
+                .WithMessage("O Id não pode ser nulo");
+
             RuleFor(x => x.Nome)
                 .NotEmpty().NotNull()
                 .WithMessage("O Nome não pode ser nulo");

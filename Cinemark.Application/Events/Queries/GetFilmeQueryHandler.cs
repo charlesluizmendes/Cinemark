@@ -1,21 +1,21 @@
-﻿using Cinemark.Domain.Entities;
-using Cinemark.Domain.Interfaces.Services;
+﻿using Cinemark.Domain.Interfaces.Repositories;
+using Cinemark.Domain.Models;
 using MediatR;
 
 namespace Cinemark.Application.Events.Queries
 {
     public class GetFilmeQueryHandler : IRequestHandler<GetFilmeQuery, IEnumerable<Filme>>
     {
-        private readonly IFilmeService _filmeService;
+        private readonly IFilmeRepository _filmeRepository;
 
-        public GetFilmeQueryHandler(IFilmeService filmeService)
+        public GetFilmeQueryHandler(IFilmeRepository filmeRepository)
         {
-            _filmeService = filmeService;
+            _filmeRepository = filmeRepository;
         }
 
         public async Task<IEnumerable<Filme>> Handle(GetFilmeQuery request, CancellationToken cancellationToken)
         {
-            return await _filmeService.GetAllAsync();
+            return await _filmeRepository.GetAllAsync();
         }
     }
 }

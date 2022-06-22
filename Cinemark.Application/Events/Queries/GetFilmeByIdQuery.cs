@@ -1,4 +1,4 @@
-﻿using Cinemark.Domain.Entities;
+﻿using Cinemark.Domain.Models;
 using MediatR;
 
 namespace Cinemark.Application.Events.Queries
