@@ -1,4 +1,4 @@
-﻿using Cinemark.Domain.Entities;
+﻿using Cinemark.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -1,4 +1,4 @@
-﻿namespace Cinemark.Domain.Entities
+﻿namespace Cinemark.Domain.Models
 {
     public class Filme
     {

@@ -1,6 +1,6 @@
-﻿using Cinemark.Domain.Entities;
-using Cinemark.Domain.Interfaces.EventBus;
+﻿using Cinemark.Domain.Interfaces.EventBus;
 using Cinemark.Domain.Interfaces.Repositories;
+using Cinemark.Domain.Models;
 using MediatR;
 
 namespace Cinemark.Application.Events.Commands

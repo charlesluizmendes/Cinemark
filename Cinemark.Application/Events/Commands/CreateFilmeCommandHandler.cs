@@ -1,6 +1,6 @@
-﻿using Cinemark.Domain.Entities;
-using Cinemark.Domain.Interfaces.EventBus;
+﻿using Cinemark.Domain.Interfaces.EventBus;
 using Cinemark.Domain.Interfaces.Repositories;
+using Cinemark.Domain.Models;
 using MediatR;
 
 namespace Cinemark.Application.Events.Commands
@@ -10,7 +10,7 @@ namespace Cinemark.Application.Events.Commands
         private readonly IFilmeRepository _filmeRepository;
         private readonly ICreateFilmeSender _createFilmeSender;
 
-        public CreateFilmeCommandHandler(IFilmeRepository filmeRepository, 
+        public CreateFilmeCommandHandler(IFilmeRepository filmeRepository,
             ICreateFilmeSender createFilmeSender)
         {
             _filmeRepository = filmeRepository;

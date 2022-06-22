@@ -1,4 +1,4 @@
-﻿using Cinemark.Domain.Entities;
+﻿using Cinemark.Domain.Models;
 using MongoDB.Bson.Serialization;
 
 namespace Cinemark.Infrastructure.Data.Mapping.Mongo

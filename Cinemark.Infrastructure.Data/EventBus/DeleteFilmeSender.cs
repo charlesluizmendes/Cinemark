@@ -1,5 +1,5 @@
-﻿using Cinemark.Domain.Entities;
-using Cinemark.Domain.Interfaces.EventBus;
+﻿using Cinemark.Domain.Interfaces.EventBus;
+using Cinemark.Domain.Models;
 using Cinemark.Infrastructure.Data.EventBus.Common;
 using Cinemark.Infrastructure.Data.EventBus.Option;
 using Microsoft.Extensions.Options;

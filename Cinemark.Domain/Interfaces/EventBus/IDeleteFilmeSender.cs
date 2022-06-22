@@ -1,4 +1,4 @@
-﻿using Cinemark.Domain.Entities;
+﻿using Cinemark.Domain.Models;
 
 namespace Cinemark.Domain.Interfaces.EventBus
 {

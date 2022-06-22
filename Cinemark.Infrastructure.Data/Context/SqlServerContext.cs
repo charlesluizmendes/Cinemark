@@ -1,4 +1,4 @@
-﻿using Cinemark.Domain.Entities;
+﻿using Cinemark.Domain.Models;
 using Cinemark.Infrastructure.Data.Mapping.SqlServer;
 using Microsoft.EntityFrameworkCore;
 
