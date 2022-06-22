@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Cinemark.Infrastructure.IoC\Cinemark.Infrastructure.IoC.csproj" />
   </ItemGroup>
 
 </Project>
