@@ -24,6 +24,7 @@ namespace Cinemark.Infrastructure.Data.Context
         public static void OnModelCreating()
         {
             FilmeMap.Configure();
+            UsuarioMap.Configure();
         }
     }
 }

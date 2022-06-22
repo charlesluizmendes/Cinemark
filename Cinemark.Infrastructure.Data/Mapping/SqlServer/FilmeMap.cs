@@ -14,7 +14,7 @@ namespace Cinemark.Infrastructure.Data.Mapping.SqlServer
             builder.Property(p => p.Nome).IsRequired();
             builder.Property(p => p.Categoria).IsRequired();
             builder.Property(p => p.FaixaEtaria).IsRequired();
-            builder.HasIndex(p => p.DataLancamento).IsUnique();
+            builder.Property(p => p.DataLancamento).IsRequired();
         }
     }
 }
