@@ -10,7 +10,7 @@ namespace Cinemark.Infrastructure.Data.Context
         private IMongoDatabase _databaseName { get; set; }
         private MongoClient _mongoClient { get; set; }
 
-        public MongoContext(IOptions<MongoSettings> configuration)
+        public MongoContext(IOptions<MongoConfiguration> configuration)
         {
             _databaseName = _mongoClient.GetDatabase(configuration.Value.DatabaseName);
             _mongoClient = new MongoClient(configuration.Value.Connection);
