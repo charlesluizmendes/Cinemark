@@ -8,14 +8,14 @@ using System.Text;
 
 namespace Cinemark.Infrastructure.Data.EventBus
 {
-    public class FilmeDispatcher : IFilmeDispatcher
+    public class CreateFilmeSender : ICreateFilmeSender
     {
         private readonly string? _hostname;
         private readonly string? _queueName;
         private readonly string? _username;
         private readonly string? _password;
 
-        public FilmeDispatcher(IOptions<RabbitMqConfiguration> rabbitMqOptions)
+        public CreateFilmeSender(IOptions<RabbitMqConfiguration> rabbitMqOptions)
         {
             _hostname = rabbitMqOptions.Value.Hostname;
             _queueName = rabbitMqOptions.Value.QueueName;

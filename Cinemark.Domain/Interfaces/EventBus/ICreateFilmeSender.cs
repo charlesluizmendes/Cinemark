@@ -2,7 +2,7 @@
 
 namespace Cinemark.Domain.Interfaces.EventBus
 {
-    public interface IFilmeDispatcher
+    public interface ICreateFilmeSender
     {
         Task SendMessageAsync(Filme filme);
     }

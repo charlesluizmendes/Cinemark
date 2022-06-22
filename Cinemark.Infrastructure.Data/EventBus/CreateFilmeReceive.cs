@@ -1,4 +1,5 @@
 ﻿using Cinemark.Domain.Entities;
+using Cinemark.Domain.Interfaces.Repositories;
 using Cinemark.Infrastructure.Data.EventBus.Option;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
@@ -9,8 +10,10 @@ using System.Text;
 
 namespace Cinemark.Infrastructure.Data.EventBus
 {
-    public class FilmeMessageListener : BackgroundService
+    public class CreateFilmeReceive : BackgroundService
     {
+        private readonly IFilmeRepository _filmeRepository;
+
         private readonly string? _hostname;
         private readonly string? _queueName;
         private readonly string? _username;
@@ -19,8 +22,11 @@ namespace Cinemark.Infrastructure.Data.EventBus
         private IModel? _channel;
         private IConnection? _connection;
 
-        public FilmeMessageListener(IOptions<RabbitMqConfiguration> rabbitMqOptions)
+        public CreateFilmeReceive(IFilmeRepository filmeRepository,
+            IOptions<RabbitMqConfiguration> rabbitMqOptions)
         {
+            _filmeRepository = filmeRepository;
+
             _hostname = rabbitMqOptions.Value.Hostname;
             _queueName = rabbitMqOptions.Value.QueueName;
             _username = rabbitMqOptions.Value.UserName;
@@ -64,7 +70,8 @@ namespace Cinemark.Infrastructure.Data.EventBus
                     var message = Encoding.UTF8.GetString(body);
                     var filme = JsonConvert.DeserializeObject<Filme>(message);
 
-
+                    if (filme != null)
+                        await HandleMessage(filme);
 
                     _channel.BasicAck(ea.DeliveryTag, false);
 
@@ -81,6 +88,11 @@ namespace Cinemark.Infrastructure.Data.EventBus
             _channel.BasicConsume(_queueName, false, consumer);
 
             await Task.Yield();
+        }
+
+        private async Task HandleMessage(Filme filme)
+        {
+            await _filmeRepository.InsertAsync(filme);
         }
 
         public override void Dispose()

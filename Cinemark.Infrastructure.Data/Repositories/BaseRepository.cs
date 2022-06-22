@@ -1,5 +1,6 @@
 ﻿using Cinemark.Domain.Interfaces.Repositories;
-using Cinemark.Infrastructure.Data.Context;
+using Cinemark.Infrastructure.Data.Context.Mongo;
+using Cinemark.Infrastructure.Data.Context.SqlServer;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 
@@ -7,12 +8,12 @@ namespace Cinemark.Infrastructure.Data.Repositories
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        private readonly CinemarkMongoContext _mongoContext;
+        private readonly Context.Mongo.CinemarkContext _mongoContext;
         private IMongoCollection<T> _dbMongoCollection;
-        private readonly CinemarkSqlServerContext _sqlServerContext;
+        private readonly Context.SqlServer.CinemarkContext _sqlServerContext;
 
-        public BaseRepository(CinemarkMongoContext mongoContext,
-            CinemarkSqlServerContext sqlServerContext)
+        public BaseRepository(Context.Mongo.CinemarkContext mongoContext,
+            Context.SqlServer.CinemarkContext sqlServerContext)
         {
             _mongoContext = mongoContext;
             _dbMongoCollection = _mongoContext.GetCollection<T>(typeof(T).Name);

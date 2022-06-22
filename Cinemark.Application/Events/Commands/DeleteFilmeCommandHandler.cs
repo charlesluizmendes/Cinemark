@@ -1,21 +1,21 @@
 ﻿using Cinemark.Domain.Entities;
-using Cinemark.Domain.Interfaces.Services;
+using Cinemark.Domain.Interfaces.Repositories;
 using MediatR;
 
 namespace Cinemark.Application.Events.Commands
 {
     public class DeleteFilmeCommandHandler : IRequestHandler<DeleteFilmeCommand, Filme>
     {
-        private readonly IFilmeService _filmeService;
+        private readonly IFilmeRepository _filmeRepository;
 
-        public DeleteFilmeCommandHandler(IFilmeService filmeService)
+        public DeleteFilmeCommandHandler(IFilmeRepository filmeRepository)
         {
-            _filmeService = filmeService;
+            _filmeRepository = filmeRepository;
         }
 
         public async Task<Filme> Handle(DeleteFilmeCommand request, CancellationToken cancellationToken)
         {
-            return await _filmeService.DeleteAsync(request.Filme);
+            return await _filmeRepository.DeleteAsync(request.Filme);
         }
     }
 }

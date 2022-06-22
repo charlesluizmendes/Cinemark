@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Cinemark.Infrastructure.Data.Mapping
+namespace Cinemark.Infrastructure.Data.Mapping.SqlServer
 {
-    internal class FilmeSqlServerMap : IEntityTypeConfiguration<Filme>
+    internal class FilmeMap : IEntityTypeConfiguration<Filme>
     {
         public void Configure(EntityTypeBuilder<Filme> builder)
         {

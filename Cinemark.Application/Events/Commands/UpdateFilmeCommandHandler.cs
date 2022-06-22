@@ -1,21 +1,21 @@
 ﻿using Cinemark.Domain.Entities;
-using Cinemark.Domain.Interfaces.Services;
+using Cinemark.Domain.Interfaces.Repositories;
 using MediatR;
 
 namespace Cinemark.Application.Events.Commands
 {
     public class UpdateFilmeCommandHandler : IRequestHandler<UpdateFilmeCommand, Filme>
     {
-        private readonly IFilmeService _filmeService;
+        private readonly IFilmeRepository _filmeRepository;
 
-        public UpdateFilmeCommandHandler(IFilmeService filmeService)
+        public UpdateFilmeCommandHandler(IFilmeRepository filmeRepository)
         {
-            _filmeService = filmeService;
+            _filmeRepository = filmeRepository;
         }
 
         public async Task<Filme> Handle(UpdateFilmeCommand request, CancellationToken cancellationToken)
         {
-            return await _filmeService.UpdateAsync(request.Filme);
+            return await _filmeRepository.UpdateAsync(request.Filme);
         }
     }
 }

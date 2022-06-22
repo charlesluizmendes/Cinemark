@@ -1,9 +1,9 @@
 ﻿using Cinemark.Domain.Entities;
 using MongoDB.Bson.Serialization;
 
-namespace Cinemark.Infrastructure.Data.Mapping
+namespace Cinemark.Infrastructure.Data.Mapping.Mongo
 {
-    public class FilmeMongoMap
+    public class FilmeMap
     {
         public static void Configure()
         {

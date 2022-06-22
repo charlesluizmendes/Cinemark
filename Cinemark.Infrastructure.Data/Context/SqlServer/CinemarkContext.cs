@@ -1,12 +1,12 @@
 ﻿using Cinemark.Domain.Entities;
-using Cinemark.Infrastructure.Data.Mapping;
+using Cinemark.Infrastructure.Data.Mapping.SqlServer;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cinemark.Infrastructure.Data.Context
+namespace Cinemark.Infrastructure.Data.Context.SqlServer
 {
-    public class CinemarkSqlServerContext : DbContext, IDisposable
+    public class CinemarkContext : DbContext, IDisposable
     {
-        public CinemarkSqlServerContext(DbContextOptions<CinemarkSqlServerContext> options)
+        public CinemarkContext(DbContextOptions<CinemarkContext> options)
             : base(options)
         {
         }
@@ -17,7 +17,7 @@ namespace Cinemark.Infrastructure.Data.Context
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Filme>(new FilmeSqlServerMap().Configure);
+            builder.Entity<Filme>(new FilmeMap().Configure);
         }
     }
 }

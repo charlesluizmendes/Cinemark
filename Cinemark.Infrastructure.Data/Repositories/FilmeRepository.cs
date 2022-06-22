@@ -1,18 +1,19 @@
 ﻿using Cinemark.Domain.Entities;
 using Cinemark.Domain.Interfaces.Repositories;
-using Cinemark.Infrastructure.Data.Context;
+using Cinemark.Infrastructure.Data.Context.Mongo;
+using Cinemark.Infrastructure.Data.Context.SqlServer;
 using MongoDB.Driver;
 
 namespace Cinemark.Infrastructure.Data.Repositories
 {
     public class FilmeRepository : BaseRepository<Filme>, IFilmeRepository
     {
-        private readonly CinemarkMongoContext _mongoContext;
+        private readonly Context.Mongo.CinemarkContext _mongoContext;
         private IMongoCollection<Filme> _dbMongoCollection;
-        private readonly CinemarkSqlServerContext _sqlServercontext;
+        private readonly Context.SqlServer.CinemarkContext _sqlServercontext;
 
-        public FilmeRepository(CinemarkMongoContext mongoContext, 
-            CinemarkSqlServerContext sqlServercontext) 
+        public FilmeRepository(Context.Mongo.CinemarkContext mongoContext,
+            Context.SqlServer.CinemarkContext sqlServercontext) 
             : base(mongoContext, sqlServercontext)
         {
             _mongoContext = mongoContext;
