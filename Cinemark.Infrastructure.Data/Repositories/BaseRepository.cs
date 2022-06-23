@@ -35,7 +35,7 @@ namespace Cinemark.Infrastructure.Data.Repositories
         {
             try
             {
-                return await _mongoCollection.Find(Builders<T>.Filter.Eq("Id", id)).FirstOrDefaultAsync();
+                return await _mongoCollection.Find(Builders<T>.Filter.Eq("_id", id)).FirstOrDefaultAsync();
             }
             catch (Exception)
             {

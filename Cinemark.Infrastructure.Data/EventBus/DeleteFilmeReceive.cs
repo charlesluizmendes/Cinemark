@@ -84,7 +84,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
 
         private void HandleMessage(Filme filme)
         {
-            _mongoCollection.DeleteOneAsync(Builders<Filme>.Filter.Eq("Id", filme.Id));
+            _mongoCollection.DeleteOneAsync(Builders<Filme>.Filter.Eq("_id", filme.Id));
         }
 
         public override void Dispose()
