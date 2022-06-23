@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cinemark.Infrastructure.IoC\Cinemark.Infrastructure.IoC.csproj" />
+    <ProjectReference Include="..\..\src\Cinemark.Infrastructure.IoC\Cinemark.Infrastructure.IoC.csproj" />
   </ItemGroup>
 
 </Project>
