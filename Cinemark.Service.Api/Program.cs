@@ -1,4 +1,6 @@
 using Cinemark.Application.AutoMapper;
+using Cinemark.Application.Middleware;
+using Cinemark.Domain.Models.Commom;
 using Cinemark.Infrastructure.Data.Context;
 using Cinemark.Infrastructure.Data.Context.Option;
 using Cinemark.Infrastructure.Data.EventBus;
@@ -8,9 +10,11 @@ using Cinemark.Infrastructure.IoC;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Net;
 using System.Reflection;
 using System.Text;
 
@@ -75,6 +79,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddControllers().AddFluentValidation();
 
+// ModelState
+
+builder.Services.Configure<ApiBehaviorOptions>(o =>
+{
+    o.SuppressMapClientErrors = true;
+    o.InvalidModelStateResponseFactory = actionContext =>
+    {
+        return new BadRequestObjectResult(actionContext.ModelState
+        .Where(modelError => modelError.Value.Errors.Count > 0)
+        .Select(modelError => new HttpResult()
+        {
+            StatusCode = HttpStatusCode.BadRequest,
+            Message = modelError.Value.Errors.FirstOrDefault().ErrorMessage
+        })
+        .FirstOrDefault());
+    };
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -113,6 +135,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Exception
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // JWT
 
