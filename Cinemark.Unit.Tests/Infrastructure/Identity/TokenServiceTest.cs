@@ -1,9 +1,6 @@
 ﻿using Cinemark.Domain.Interfaces.Services;
 using Cinemark.Domain.Models;
-using Cinemark.Infrastructure.Identity.Services;
-using Cinemark.Infrastructure.Identity.Services.Option;
 using FluentAssertions;
-using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
 
@@ -18,8 +15,8 @@ namespace Cinemark.Unit.Tests.Infrastructure.Identity
             tokenService.Setup(x => x.CreateTokenAsync(It.IsAny<Usuario>()))
                 .ReturnsAsync(new Token() 
                 {
-                    AccessKey = "eYmcpwojevpoglplapqkdpoqwkwopejmfvpomwevfwvwerv",
-                    ValidTo = "2023"
+                    AccessKey = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJjaGFybGVzbHVpem1lbmRlc0BnbWFpbC5jb20iLCJleHAiOjE2NTYwMDA5NTIsImlzcyI6ImNoYXJsZXMubWVuZGVzIiwiYXVkIjoiY2hhcmxlcy5tZW5kZXMifQ.-EOVcaUbT1l5ya6cIGkd4HUMd8TfW9_jebB5mWzMgkw",
+                    ValidTo = "23/06/2022 16:15:52"
                 });
 
             var usuario = new Usuario()
@@ -33,8 +30,8 @@ namespace Cinemark.Unit.Tests.Infrastructure.Identity
 
             var result = await tokenService.Object.CreateTokenAsync(usuario);
 
-            result.AccessKey.Should().Be("eYmcpwojevpoglplapqkdpoqwkwopejmfvpomwevfwvwerv");
-            result.ValidTo.Should().Be("2023");
+            result.AccessKey.Should().Be("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJjaGFybGVzbHVpem1lbmRlc0BnbWFpbC5jb20iLCJleHAiOjE2NTYwMDA5NTIsImlzcyI6ImNoYXJsZXMubWVuZGVzIiwiYXVkIjoiY2hhcmxlcy5tZW5kZXMifQ.-EOVcaUbT1l5ya6cIGkd4HUMd8TfW9_jebB5mWzMgkw");
+            result.ValidTo.Should().Be("23/06/2022 16:15:52");
         }        
     }
 }
