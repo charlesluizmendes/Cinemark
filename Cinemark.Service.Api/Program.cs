@@ -52,8 +52,6 @@ builder.Services.AddAutoMapper(typeof(DtoToEntityMappingProfile), typeof(EntityT
 
 builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("Jwt"));
 
-var jwt = builder.Configuration.GetSection("Jwt");
-
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme = "Token";
@@ -66,9 +64,9 @@ builder.Services.AddAuthentication(x =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = jwt["Jwt:Issuer"],
-        ValidAudience = jwt["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwt["Jwt:Key"])),
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"])),
         ClockSkew = TimeSpan.Zero,
         RequireExpirationTime = true
     };
@@ -96,7 +94,6 @@ app.UseHttpsRedirection();
 // JWT
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();
