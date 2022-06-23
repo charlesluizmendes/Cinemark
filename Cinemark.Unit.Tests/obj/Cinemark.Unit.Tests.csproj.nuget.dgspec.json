@@ -4,14 +4,98 @@
     "D:\\Visual Studio\\Cinemark\\Cinemark.Unit.Tests\\Cinemark.Unit.Tests.csproj": {}
   },
   "projects": {
-    "D:\\Visual Studio\\Cinemark\\Cinemark.Unit.Tests\\Cinemark.Unit.Tests.csproj": {
+    "D:\\Visual Studio\\Cinemark\\Cinemark.Application\\Cinemark.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Visual Studio\\Cinemark\\Cinemark.Unit.Tests\\Cinemark.Unit.Tests.csproj",
-        "projectName": "Cinemark.Unit.Tests",
-        "projectPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Unit.Tests\\Cinemark.Unit.Tests.csproj",
+        "projectUniqueName": "D:\\Visual Studio\\Cinemark\\Cinemark.Application\\Cinemark.Application.csproj",
+        "projectName": "Cinemark.Application",
+        "projectPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Application\\Cinemark.Application.csproj",
         "packagesPath": "C:\\Users\\Charles Mendes\\.nuget\\packages\\",
-        "outputPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Unit.Tests\\obj\\",
+        "outputPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Charles Mendes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "D:\\Visual Studio\\Cinemark\\Cinemark.Domain\\Cinemark.Domain.csproj": {
+                "projectPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Domain\\Cinemark.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[11.0.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.0.0, )"
+            },
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.0.3, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[10.0.1, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[10.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Visual Studio\\Cinemark\\Cinemark.Domain\\Cinemark.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Visual Studio\\Cinemark\\Cinemark.Domain\\Cinemark.Domain.csproj",
+        "projectName": "Cinemark.Domain",
+        "projectPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Domain\\Cinemark.Domain.csproj",
+        "packagesPath": "C:\\Users\\Charles Mendes\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -43,10 +127,321 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.Data\\Cinemark.Infrastructure.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.Data\\Cinemark.Infrastructure.Data.csproj",
+        "projectName": "Cinemark.Infrastructure.Data",
+        "projectPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.Data\\Cinemark.Infrastructure.Data.csproj",
+        "packagesPath": "C:\\Users\\Charles Mendes\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.Data\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Charles Mendes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "D:\\Visual Studio\\Cinemark\\Cinemark.Domain\\Cinemark.Domain.csproj": {
+                "projectPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Domain\\Cinemark.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.6, )"
+            },
+            "Microsoft.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.16.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "RabbitMQ.Client": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.Identity\\Cinemark.Infrastructure.Identity.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.Identity\\Cinemark.Infrastructure.Identity.csproj",
+        "projectName": "Cinemark.Infrastructure.Identity",
+        "projectPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.Identity\\Cinemark.Infrastructure.Identity.csproj",
+        "packagesPath": "C:\\Users\\Charles Mendes\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.Identity\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Charles Mendes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "D:\\Visual Studio\\Cinemark\\Cinemark.Domain\\Cinemark.Domain.csproj": {
+                "projectPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Domain\\Cinemark.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.6, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.IoC\\Cinemark.Infrastructure.IoC.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.IoC\\Cinemark.Infrastructure.IoC.csproj",
+        "projectName": "Cinemark.Infrastructure.IoC",
+        "projectPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.IoC\\Cinemark.Infrastructure.IoC.csproj",
+        "packagesPath": "C:\\Users\\Charles Mendes\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.IoC\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Charles Mendes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "D:\\Visual Studio\\Cinemark\\Cinemark.Application\\Cinemark.Application.csproj": {
+                "projectPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Application\\Cinemark.Application.csproj"
+              },
+              "D:\\Visual Studio\\Cinemark\\Cinemark.Domain\\Cinemark.Domain.csproj": {
+                "projectPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Domain\\Cinemark.Domain.csproj"
+              },
+              "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.Data\\Cinemark.Infrastructure.Data.csproj": {
+                "projectPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.Data\\Cinemark.Infrastructure.Data.csproj"
+              },
+              "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.Identity\\Cinemark.Infrastructure.Identity.csproj": {
+                "projectPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.Identity\\Cinemark.Infrastructure.Identity.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Visual Studio\\Cinemark\\Cinemark.Unit.Tests\\Cinemark.Unit.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Visual Studio\\Cinemark\\Cinemark.Unit.Tests\\Cinemark.Unit.Tests.csproj",
+        "projectName": "Cinemark.Unit.Tests",
+        "projectPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Unit.Tests\\Cinemark.Unit.Tests.csproj",
+        "packagesPath": "C:\\Users\\Charles Mendes\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Unit.Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Charles Mendes\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.IoC\\Cinemark.Infrastructure.IoC.csproj": {
+                "projectPath": "D:\\Visual Studio\\Cinemark\\Cinemark.Infrastructure.IoC\\Cinemark.Infrastructure.IoC.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "FluentAssertions": {
+              "target": "Package",
+              "version": "[6.7.0, )"
+            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.1.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.18.1, )"
             },
             "coverlet.collector": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
