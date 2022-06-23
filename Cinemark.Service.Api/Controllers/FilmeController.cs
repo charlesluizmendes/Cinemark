@@ -25,14 +25,21 @@ namespace Cinemark.Service.Api.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(FilmeDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<FilmeDto>> Get()
         {
             var filmes = await _mediator.Send(new GetFilmeQuery { });
+
+            if (filmes == null)
+                return BadRequest("Nenhum Filme foi encontrado");
 
             return Ok(_mapper.Map<IEnumerable<FilmeDto>>(filmes));
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(FilmeDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<FilmeDto>> Get(int id)
         {
             var filme = await _mediator.Send(new GetFilmeByIdQuery
@@ -40,10 +47,15 @@ namespace Cinemark.Service.Api.Controllers
                 Id = id
             });
 
+            if (filme == null)
+                return BadRequest("O Filme não foi encontrado");
+
             return Ok(_mapper.Map<FilmeDto>(filme));
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(FilmeDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<FilmeDto>> Post(CreateFilmeDto request)
         {
             var filme = await _mediator.Send(new CreateFilmeCommand
@@ -58,6 +70,8 @@ namespace Cinemark.Service.Api.Controllers
         }
 
         [HttpPut]
+        [ProducesResponseType(typeof(FilmeDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<FilmeDto>> Put(UpdateFilmeDto request)
         {
             var filme = await _mediator.Send(new UpdateFilmeCommand
@@ -65,10 +79,15 @@ namespace Cinemark.Service.Api.Controllers
                 Filme = _mapper.Map<Filme>(request)
             });
 
+            if (filme == null)
+                return BadRequest("Não foi possível alterar o Filme");
+
             return Ok(_mapper.Map<FilmeDto>(filme));
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(FilmeDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<FilmeDto>> Delete(int id)
         {
             var filme = await _mediator.Send(new GetFilmeByIdQuery

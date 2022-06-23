@@ -22,6 +22,8 @@ namespace Cinemark.Service.Api.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(TokenDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<TokenDto>> Get([FromQuery] GetTokenDto request)
         {
             var token = await _mediator.Send(new GetTokenByUsuarioQuery
