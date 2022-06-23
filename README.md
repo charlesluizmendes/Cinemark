@@ -1,7 +1,9 @@
 # Cinemark
 Projeto de Teste de Desenvolvedor Backend .NET da Cinemark
 
-Toda a aplicação foi desenvolvida utilizando ASP.NET Core 6, a API possui um endpoint Token Get para obter um JWT, este que por sua vez, precisa ser inserido na Header das requições de CRUD de Filmes.
+## Arquitetura
+
+Toda a aplicação foi desenvolvida utilizando ASP.NET Core 6 com padrão de arquitetura DDD com CQRS, portanto a API possui dois banco de dados segregados, o MongoDB para leitura dos dados e o SQL Server para escrita, um componente é responsável para a sincronização dos dados através de mensagerias do RabiitmQ. A API possui um endpoint Token Get para obter um JWT, este que por sua vez, precisa ser inserido na Header das requições de CRUD de Filmes.
 
 ## Ambiente
 
@@ -62,6 +64,8 @@ db.Usuario.insert(
 ```
 
 ## Requisições
+
+O projeto possui Documentação pelo Swagger, portanto possui os seguintes endpoints:
 
 ### GET Token
 
