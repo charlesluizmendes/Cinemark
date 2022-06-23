@@ -7,8 +7,10 @@ using Cinemark.Infrastructure.Identity.Services.Option;
 using Cinemark.Infrastructure.IoC;
 using FluentValidation.AspNetCore;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
 
@@ -52,11 +54,8 @@ builder.Services.AddAutoMapper(typeof(DtoToEntityMappingProfile), typeof(EntityT
 
 builder.Services.Configure<JwtConfiguration>(builder.Configuration.GetSection("Jwt"));
 
-builder.Services.AddAuthentication(x =>
-{
-    x.DefaultAuthenticateScheme = "Token";
-})
-.AddJwtBearer("Token", options =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -78,7 +77,28 @@ builder.Services.AddControllers().AddFluentValidation();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cinemark API", Version = "v1" });
+    c.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+    {
+        Description = "Token Authorization header using the Bearer scheme.",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = JwtBearerDefaults.AuthenticationScheme,
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = JwtBearerDefaults.AuthenticationScheme }
+            },
+            new[] { "readAccess", "writeAccess" }
+        }
+    });
+});
 
 var app = builder.Build();
 
@@ -86,7 +106,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => 
+    {
+        c.DefaultModelsExpandDepth(-1);
+    });
 }
 
 app.UseHttpsRedirection();
