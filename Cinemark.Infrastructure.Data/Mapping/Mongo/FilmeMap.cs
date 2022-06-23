@@ -11,11 +11,11 @@ namespace Cinemark.Infrastructure.Data.Mapping.Mongo
             {
                 map.AutoMap();
                 map.SetIgnoreExtraElements(true);
-                map.MapIdMember(x => x.Id);
-                map.MapIdMember(x => x.Nome).SetIsRequired(true);
-                map.MapIdMember(x => x.Categoria).SetIsRequired(true);
-                map.MapIdMember(x => x.FaixaEtaria).SetIsRequired(true);
-                map.MapIdMember(x => x.DataLancamento).SetIsRequired(true);
+                map.MapIdMember(x => x.Id).SetIsRequired(true);
+                map.MapProperty(x => x.Nome).SetIsRequired(true);
+                map.MapProperty(x => x.Categoria).SetIsRequired(true);
+                map.MapProperty(x => x.FaixaEtaria).SetIsRequired(true);
+                map.MapProperty(x => x.DataLancamento).SetIsRequired(true);
             });
         }
     }

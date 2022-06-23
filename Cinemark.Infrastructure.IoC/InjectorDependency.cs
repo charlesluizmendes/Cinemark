@@ -24,14 +24,12 @@ namespace Cinemark.Infrastructure.IoC
 
             container.AddTransient<IRequestHandler<GetFilmeQuery, IEnumerable<Filme>>, GetFilmeQueryHandler>();
             container.AddTransient<IRequestHandler<GetFilmeByIdQuery, Filme>, GetFilmeByIdQueryHandler>();
-            container.AddTransient<IRequestHandler<GetTokenByUsuarioQuery, Token>, GetTokenByUsuarioQueryHandler>();
+            container.AddTransient<IRequestHandler<GetTokenByUsuarioQuery, Token?>, GetTokenByUsuarioQueryHandler>();
             container.AddTransient<IRequestHandler<CreateFilmeCommand, Filme>, CreateFilmeCommandHandler>();
             container.AddTransient<IRequestHandler<DeleteFilmeCommand, Filme>, DeleteFilmeCommandHandler>();
             container.AddTransient<IRequestHandler<UpdateFilmeCommand, Filme>, UpdateFilmeCommandHandler>();
 
-            container.AddTransient<IValidator<GetFilmeByIdDto>, GetFilmeByIdDtoValidator>();
             container.AddTransient<IValidator<CreateFilmeDto>, CreateFilmeDtoValidator>();
-            container.AddTransient<IValidator<DeleteFilmeDto>, DeleteFilmeDtoValidator>();
             container.AddTransient<IValidator<UpdateFilmeDto>, UpdateFilmeDtoValidator>();
 
             // Infrastructure

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Cinemark.Application.Events.Queries
 {
-    public class GetTokenByUsuarioQueryHandler : IRequestHandler<GetTokenByUsuarioQuery, Token>
+    public class GetTokenByUsuarioQueryHandler : IRequestHandler<GetTokenByUsuarioQuery, Token?>
     {
         private readonly ITokenService _tokenService;
         private readonly IUsuarioRepository _usuarioRepository;
@@ -17,12 +17,12 @@ namespace Cinemark.Application.Events.Queries
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<Token> Handle(GetTokenByUsuarioQuery request, CancellationToken cancellationToken)
+        public async Task<Token?> Handle(GetTokenByUsuarioQuery request, CancellationToken cancellationToken)
         {
             var usuario = await _usuarioRepository.GetUsuarioByEmailAndSenhaAsync(request.Usuario);
 
             if (usuario == null)
-                return await Task.FromResult(new Token());
+                return null;
 
             return await _tokenService.CreateTokenAsync(usuario);
         }

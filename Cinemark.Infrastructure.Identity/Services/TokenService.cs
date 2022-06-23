@@ -1,6 +1,7 @@
 ﻿using Cinemark.Domain.Interfaces.Services;
 using Cinemark.Domain.Models;
 using Cinemark.Infrastructure.Identity.Services.Option;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -52,7 +53,7 @@ namespace Cinemark.Infrastructure.Identity.Services
 
             return await Task.FromResult(new Token
             {                
-                AccessKey = accessKey,
+                AccessKey = JwtBearerDefaults.AuthenticationScheme + " " + accessKey,
                 ValidTo = validTo                
             });
         }

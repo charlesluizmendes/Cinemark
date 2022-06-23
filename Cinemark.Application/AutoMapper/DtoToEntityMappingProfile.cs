@@ -7,11 +7,12 @@ namespace Cinemark.Application.AutoMapper
     public class DtoToEntityMappingProfile : Profile
     {
         public DtoToEntityMappingProfile()
-        {
-            CreateMap<GetFilmeByIdDto, Filme>();
+        {            
             CreateMap<CreateFilmeDto, Filme>();
+            CreateMap<FilmeDto, Filme>();
+            CreateMap<TokenDto, Token>();
             CreateMap<UpdateFilmeDto, Filme>();
-            CreateMap<DeleteFilmeDto, Filme>();
+            CreateMap<GetTokenDto, Usuario>();
         }
     }
 }
