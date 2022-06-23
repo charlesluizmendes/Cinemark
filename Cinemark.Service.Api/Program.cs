@@ -1,6 +1,7 @@
 using Cinemark.Application.AutoMapper;
 using Cinemark.Infrastructure.Data.Context;
 using Cinemark.Infrastructure.Data.Context.Option;
+using Cinemark.Infrastructure.Data.EventBus;
 using Cinemark.Infrastructure.Data.EventBus.Option;
 using Cinemark.Infrastructure.Identity.Services.Option;
 using Cinemark.Infrastructure.IoC;
@@ -31,6 +32,9 @@ MongoContext.OnModelCreating();
 // RabbitMQ
 
 builder.Services.Configure<RabbitMqConfiguration>(builder.Configuration.GetSection("RabbitMq"));
+builder.Services.AddHostedService<CreateFilmeReceive>();
+builder.Services.AddHostedService<UpdateFilmeReceive>();
+builder.Services.AddHostedService<DeleteFilmeReceive>();
 
 // MediatR
 
@@ -88,6 +92,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// JWT
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
