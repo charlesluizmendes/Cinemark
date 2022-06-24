@@ -10,11 +10,7 @@ namespace Cinemark.Unit.Tests.Infrastructure.Data.EventBus
     {
         [Fact]
         public void SendMessageAsync()
-        {          
-            var createFilmeSender = new Mock<ICreateFilmeSender>();
-            createFilmeSender.Setup(x => x.SendMessageAsync(It.IsAny<Filme>()))
-                .Returns(Task.CompletedTask) ;
-
+        {
             var filme = new Filme()
             {
                 Id = 1,
@@ -23,6 +19,10 @@ namespace Cinemark.Unit.Tests.Infrastructure.Data.EventBus
                 FaixaEtaria = 12,
                 DataLancamento = new DateTime(1971, 10, 3)
             };
+
+            var createFilmeSender = new Mock<ICreateFilmeSender>();
+            createFilmeSender.Setup(x => x.SendMessageAsync(It.IsAny<Filme>()))
+                .Returns(Task.CompletedTask);            
 
             var result = createFilmeSender.Object.SendMessageAsync(filme);
 
