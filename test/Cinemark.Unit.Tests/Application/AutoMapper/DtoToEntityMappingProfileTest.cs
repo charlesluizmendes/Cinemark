@@ -10,7 +10,7 @@ namespace Cinemark.Unit.Tests.Application.AutoMapper
     public class DtoToEntityMappingProfileTest
     {
         [Fact]
-        public void CreateFilmeDtoMapping()
+        public void CreateFilmeDto()
         {
             var config = new MapperConfiguration(cfg => cfg.AddProfile<DtoToEntityMappingProfile>());
             var mapper = config.CreateMapper();

@@ -1,17 +1,21 @@
-﻿using Cinemark.Domain.Interfaces.Repositories;
+﻿using AutoMapper;
+using Cinemark.Application.AutoMapper;
+using Cinemark.Application.Dto;
 using Cinemark.Domain.Models;
 using FluentAssertions;
-using Moq;
 using Xunit;
 
-namespace Cinemark.Unit.Tests.Infrastructure.Data.Repositories
+namespace Cinemark.Unit.Tests.Application.AutoMapper
 {
-    public class FilmeRepositoryTest
+    public class EntityToDtoMappingProfileTest
     {
         [Fact]
-        public async void InsertAsync()
+        public void Filme()
         {
-            var filme = new Filme()
+            var config = new MapperConfiguration(cfg => cfg.AddProfile<EntityToDtoMappingProfile>());
+            var mapper = config.CreateMapper();
+
+            var entity = new Filme()
             {
                 Id = 1,
                 Nome = "E o Vento Levou",
@@ -20,11 +24,7 @@ namespace Cinemark.Unit.Tests.Infrastructure.Data.Repositories
                 DataLancamento = new DateTime(1971, 10, 3)
             };
 
-            var filmeRepository = new Mock<IFilmeRepository>();
-            filmeRepository.Setup(x => x.InsertAsync(It.IsAny<Filme>()))
-                .ReturnsAsync(filme);            
-            
-            var result = await filmeRepository.Object.InsertAsync(filme);
+            var result = mapper.Map<Filme, FilmeDto>(entity);
 
             result.Id.Should().Be(1);
             result.Nome.Should().Be("E o Vento Levou");

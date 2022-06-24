@@ -21,7 +21,12 @@ namespace Cinemark.Unit.Tests.Application.Events.Commands
                 FaixaEtaria = 12,
                 DataLancamento = new DateTime(1971, 10, 3)
             };
-            
+
+            var createFilmeCommand = new CreateFilmeCommand()
+            {
+                Filme = filme
+            };
+
             var filmeRepositoryMock = new Mock<IFilmeRepository>();
             filmeRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<Filme>()))
                 .ReturnsAsync(filme);
@@ -30,10 +35,9 @@ namespace Cinemark.Unit.Tests.Application.Events.Commands
             createFilmeSenderMock.Setup(x => x.SendMessageAsync(It.IsAny<Filme>()))
                 .Returns(Task.FromResult(filme));
 
-            var command = new CreateFilmeCommand() { Filme = filme };            
-            var handler = new CreateFilmeCommandHandler(filmeRepositoryMock.Object, createFilmeSenderMock.Object);
-                       
-            var result = await handler.Handle(command, new CancellationToken());
+            var createFilmeCommandHandler = new Mock<CreateFilmeCommandHandler>(filmeRepositoryMock.Object, createFilmeSenderMock.Object);
+           
+            var result = await createFilmeCommandHandler.Object.Handle(createFilmeCommand, new CancellationToken());
 
             result.Id.Should().Be(1);
             result.Nome.Should().Be("E o Vento Levou");
