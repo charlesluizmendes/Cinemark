@@ -8,19 +8,19 @@ namespace Cinemark.Application.Events.Commands
     public class UpdateFilmeCommandHandler : IRequestHandler<UpdateFilmeCommand, Filme>
     {
         private readonly IFilmeRepository _filmeRepository;
-        private readonly IUpdateFilmeSender _updateFilmeSender;
+        private readonly IFilmeUpdateEventBus _filmeUpdateEventBus;
 
         public UpdateFilmeCommandHandler(IFilmeRepository filmeRepository,
-            IUpdateFilmeSender updateFilmeSender)
+            IFilmeUpdateEventBus filmeUpdateEventBus)
         {
             _filmeRepository = filmeRepository;
-            _updateFilmeSender = updateFilmeSender;
+            _filmeUpdateEventBus = filmeUpdateEventBus;
         }
 
         public async Task<Filme> Handle(UpdateFilmeCommand request, CancellationToken cancellationToken)
         {
             var result = await _filmeRepository.UpdateAsync(request.Filme);
-            await _updateFilmeSender.SendMessageAsync(result);
+            await _filmeUpdateEventBus.SendMessageAsync(result);
 
             return result;
         }

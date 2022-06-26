@@ -8,8 +8,9 @@ using Cinemark.Domain.Interfaces.Services;
 using Cinemark.Domain.Models;
 using Cinemark.Infrastructure.Data.Context;
 using Cinemark.Infrastructure.Data.EventBus;
+using Cinemark.Infrastructure.Data.EventBus.Common;
 using Cinemark.Infrastructure.Data.Repositories;
-using Cinemark.Infrastructure.Identity.Services;
+using Cinemark.Infrastructure.Data.Services;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,15 +35,17 @@ namespace Cinemark.Infrastructure.IoC
 
             // Infrastructure
 
-            container.AddSingleton<MongoContext>();
+            container.AddSingleton<MongoContext>();                        
 
             container.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             container.AddScoped<IFilmeRepository, FilmeRepository>();
             container.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
-            container.AddScoped<ICreateFilmeSender, CreateFilmeSender>();
-            container.AddScoped<IUpdateFilmeSender, UpdateFilmeSender>();
-            container.AddScoped<IDeleteFilmeSender, DeleteFilmeSender>();
+            container.AddSingleton<ConnectionEventBus>();
+
+            container.AddSingleton<IFilmeCreateEventBus, FilmeCreateEventBus>();
+            container.AddSingleton<IFilmeUpdateEventBus, FilmeUpdateEventBus>();
+            container.AddSingleton<IFilmeDeleteEventBus, FilmeDeleteEventBus>();
 
             container.AddScoped<ITokenService, TokenService>();
         }
