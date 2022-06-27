@@ -1,6 +1,6 @@
 ﻿using Cinemark.Domain.Interfaces.Services;
 using Cinemark.Domain.Models;
-using Cinemark.Infrastructure.Identity.Services.Option;
+using Cinemark.Infrastructure.Data.Services.Option;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -8,7 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Cinemark.Infrastructure.Identity.Services
+namespace Cinemark.Infrastructure.Data.Services
 {
     public class TokenService : ITokenService
     {

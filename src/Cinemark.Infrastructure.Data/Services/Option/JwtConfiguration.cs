@@ -1,4 +1,4 @@
-﻿namespace Cinemark.Infrastructure.Identity.Services.Option
+﻿namespace Cinemark.Infrastructure.Data.Services.Option
 {
     public class JwtConfiguration
     {

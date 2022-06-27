@@ -14,7 +14,7 @@
     <ProjectReference Include="..\Cinemark.Application\Cinemark.Application.csproj" />
     <ProjectReference Include="..\Cinemark.Domain\Cinemark.Domain.csproj" />
     <ProjectReference Include="..\Cinemark.Infrastructure.Data\Cinemark.Infrastructure.Data.csproj" />
-    <ProjectReference Include="..\Cinemark.Infrastructure.Identity\Cinemark.Infrastructure.Identity.csproj" />
+    <ProjectReference Include="..\Cinemark.Infrastructure.Services\Cinemark.Infrastructure.Services.csproj" />
   </ItemGroup>
 
 </Project>

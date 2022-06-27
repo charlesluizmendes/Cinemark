@@ -29,9 +29,9 @@ namespace Cinemark.Unit.Tests.Application.Events.Queries
                 .ReturnsAsync(filmes);
 
             var query = new GetFilmeQuery();
-            var handler = new GetFilmeQueryHandler(filmeRepositoryMock.Object);
+            var handler = new Mock<GetFilmeQueryHandler>(filmeRepositoryMock.Object);
 
-            var results = await handler.Handle(query, new CancellationToken());
+            var results = await handler.Object.Handle(query, new CancellationToken());
 
             foreach (var result in results)
             {
