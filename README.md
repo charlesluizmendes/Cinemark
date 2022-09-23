@@ -38,6 +38,12 @@ PM> Update-Database
 ```
 CLI> dotnet ef database update
 ```
+Para acessar o SQL Server no client, utilize as seguintes credenciais:
+```
+Server: localhost
+User: sa
+Password: Str0ngPa$$w0rd
+```
 Para a criação da tabela de Usuário, acesse o SQL Server com o Login "sa" e Senha "Str0ngPa$$w0rd" e execute o seguinte script:
 ```
 USE [cinemark]
@@ -70,7 +76,12 @@ db.Usuario.insert(
   }
 )
 ```
-
+Para acessar o RabbitMQ Management, utilize as seguintes credenciais:
+```
+Host: http://localhost:15672/
+User: guest
+Password: guest
+```
 ## Requisições
 
 O projeto possui Documentação pelo Swagger, portanto possui os seguintes endpoints:
