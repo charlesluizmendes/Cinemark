@@ -61,6 +61,13 @@ INSERT INTO [dbo].[Usuario]
            ,GETDATE())
 GO
 ```
+Para acessar terminal do container e o MongoDB, execute os comandos abaixo:
+```
+CMD> docker exec -it [ID do Container Docker do Mongo] bash  
+```
+```
+CLI> mongosh
+```
 Para a criação da collection de Usuário acesse o MondoDB e execute os seguintes scripts:
 ```
 use cinemark
@@ -76,6 +83,7 @@ db.Usuario.insert(
   }
 )
 ```
+### RabiitMQ
 Para acessar o RabbitMQ Management, utilize as seguintes credenciais:
 ```
 Host: http://localhost:15672/
