@@ -25,10 +25,18 @@ CMD> docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Str0ngPa$$w0rd" -p 1433:1433 
 CMD> docker run -d --name mongodb -p 27017:27017 mongo
 CMD> docker run -d --hostname rabbitserver --name rabbitmq-server -p 15672:15672 -p 5672:5672 rabbitmq:3-management
 ```
+* Para MacOs com arquitetura AMR64, utiliza o Azure-SQL-Edge ao invés do MSSQL
+```
+CLI> docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=Str0ngPa$$w0rd' -p 1433:1433 -d mcr.microsoft.com/azure-sql-edge)
+```
 ### Banco de Dados
 Para a criação do banco de dados e tabelas, entre no Gerenciador de Pacotes Nuget e selecione o projeto "Cinemark.Infrastructure.Data" e execute o seguinte comando:
 ```
 PM> Update-Database
+```
+* Para MasOs/Linux,ir até o diretório "Cinemark.Service.Api" e executar o seguinte comando:
+```
+CLI> dotnet ef database update
 ```
 Para a criação da tabela de Usuário, acesse o SQL Server com o Login "sa" e Senha "Str0ngPa$$w0rd" e execute o seguinte script:
 ```
