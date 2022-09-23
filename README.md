@@ -27,7 +27,7 @@ CMD> docker run -d --hostname rabbitserver --name rabbitmq-server -p 15672:15672
 ```
 * Para MacOs com arquitetura AMR64, utiliza o Azure-SQL-Edge ao invés do MSSQL
 ```
-CLI> docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=Str0ngPa$$w0rd' -p 1433:1433 -d mcr.microsoft.com/azure-sql-edge)
+CLI> docker run --cap-add SYS_PTRACE -e 'ACCEPT_EULA=1' -e 'MSSQL_SA_PASSWORD=Str0ngPa$$w0rd' -p 1433:1433 -d mcr.microsoft.com/azure-sql-edge
 ```
 ### Banco de Dados
 Para a criação do banco de dados e tabelas, entre no Gerenciador de Pacotes Nuget e selecione o projeto "Cinemark.Infrastructure.Data" e execute o seguinte comando:
