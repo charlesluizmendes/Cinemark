@@ -26,7 +26,17 @@ namespace Cinemark.Infrastructure.Data.EventBus
             _connectionEventBus = connectionEventBus;
             _connection = _connectionEventBus.CreateChannel();
             _model = _connection.CreateModel();
-            _model.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+
+            _model.ExchangeDeclare(_queueName + "_DeadLetter_Exchange", ExchangeType.Fanout);
+            _model.QueueDeclare(_queueName + "_DeadLetter_Queue", true, false, false, null);
+            _model.QueueBind(_queueName + "_DeadLetter_Queue", _queueName + "_DeadLetter_Exchange", "");
+
+            var arguments = new Dictionary<string, object>()
+            {
+                { "x-dead-letter-exchange", _queueName + "_DeadLetter_Exchange" }
+            };
+
+            _model.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: arguments);
 
             _mongoContext = mongoContext;
             _mongoCollection = _mongoContext.GetCollection<Filme>(typeof(Filme).Name);
@@ -34,17 +44,12 @@ namespace Cinemark.Infrastructure.Data.EventBus
 
         public async Task SendMessageAsync(Filme filme)
         {
-            using (var channel = _connection.CreateModel())
-            {
-                channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+            var json = JsonConvert.SerializeObject(filme);
+            var body = Encoding.UTF8.GetBytes(json);
 
-                var json = JsonConvert.SerializeObject(filme);
-                var body = Encoding.UTF8.GetBytes(json);
+            _model.BasicPublish(exchange: "", routingKey: _queueName, basicProperties: null, body: body);
 
-                channel.BasicPublish(exchange: "", routingKey: _queueName, basicProperties: null, body: body);
-
-                await Task.Yield();
-            }
+            await Task.Yield();
         }
 
         public async Task ReadMessgaesAsync()
@@ -52,17 +57,23 @@ namespace Cinemark.Infrastructure.Data.EventBus
             var consumer = new AsyncEventingBasicConsumer(_model);
             consumer.Received += async (ch, ea) =>
             {
+                try
+                {
+                    var body = ea.Body.ToArray();
+                    var message = Encoding.UTF8.GetString(body);
+                    var filme = JsonConvert.DeserializeObject<Filme>(message);
 
-                var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-                var filme = JsonConvert.DeserializeObject<Filme>(message);
+                    if (filme != null)
+                        await HandleMessage(filme);
 
-                if (filme != null)
-                    await HandleMessage(filme);
+                    _model.BasicAck(ea.DeliveryTag, false);
 
-                _model.BasicAck(ea.DeliveryTag, false);
-
-                await Task.Yield();
+                    await Task.Yield();
+                }
+                catch (Exception)
+                {
+                    _model.BasicNack(ea.DeliveryTag, false, false);
+                }
             };
 
             _model.BasicConsume(_queueName, false, consumer);
