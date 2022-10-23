@@ -14,11 +14,7 @@ namespace Cinemark.Infrastructure.Services.Consumer
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                await _filmeUpdateEventBus.HandleMessageAsync();
-                await Task.Delay(1000, stoppingToken);
-            }
+            await _filmeUpdateEventBus.SubscriberAsync();
         }
     }
 }

@@ -40,7 +40,16 @@ namespace Cinemark.Infrastructure.Data.EventBus
 
             #region Queue
 
-            _model.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+            _model.ExchangeDeclare(_queueName + "_DeadLetter_Exchange", ExchangeType.Fanout);
+            _model.QueueDeclare(_queueName + "_DeadLetter_Queue", true, false, false, null);
+            _model.QueueBind(_queueName + "_DeadLetter_Queue", _queueName + "_DeadLetter_Exchange", "");
+
+            var arguments = new Dictionary<string, object>()
+            {
+                { "x-dead-letter-exchange", _queueName + "_DeadLetter_Exchange" }
+            };
+
+            _model.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: arguments);
 
             #endregion
         }
@@ -62,25 +71,38 @@ namespace Cinemark.Infrastructure.Data.EventBus
             }
         }
 
-        public virtual async Task<T> SubscriberAsync()
+        public virtual async Task SubscriberAsync()
         {
-            try
+            var consumer = new AsyncEventingBasicConsumer(_model);
+            consumer.Received += async (ch, ea) =>
             {
-                var data = _model.BasicGet(_queueName, true);
+                try
+                {
+                    var body = ea.Body.ToArray();
+                    var message = Encoding.UTF8.GetString(body);
+                    var entity = JsonConvert.DeserializeObject<T>(message);
 
-                if (data == null)
-                    return await Task.FromResult<T>(null);
+                    if (entity != null)
+                        await HandleMessageAsync(entity);
 
-                var body = data.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-                var entity = JsonConvert.DeserializeObject<T>(message);
+                    _model.BasicAck(ea.DeliveryTag, false);
 
-                return await Task.FromResult(entity);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+                    await Task.Yield();
+                }
+                catch (Exception)
+                {
+                    _model.BasicNack(ea.DeliveryTag, false, false);
+                }
+            };
+
+            _model.BasicConsume(_queueName, false, consumer);
+
+            await Task.Yield();
+        }
+
+        public virtual async Task HandleMessageAsync(T entity)
+        {
+            await Task.Yield();
         }
 
         public void Dispose()
