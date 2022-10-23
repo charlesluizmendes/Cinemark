@@ -2,7 +2,8 @@
 
 namespace Cinemark.Domain.Interfaces.EventBus
 {
-    public interface IFilmeUpdateEventBus : IEventBus<Filme>
+    public interface IFilmeUpdateEventBus : IBaseEventBus<Filme>
     {
+        Task HandleMessageAsync();
     }
 }

@@ -20,7 +20,7 @@ namespace Cinemark.Application.Events.Commands
         public async Task<Filme> Handle(DeleteFilmeCommand request, CancellationToken cancellationToken)
         {
             var result = await _filmeRepository.DeleteAsync(request.Filme);
-            await _filmeDeleteEventBus.SendMessageAsync(result);
+            await _filmeDeleteEventBus.PublisherAsync(result);
 
             return result;
         }
