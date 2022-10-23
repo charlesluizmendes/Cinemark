@@ -62,32 +62,25 @@ namespace Cinemark.Infrastructure.Data.EventBus
             }
         }
 
-        public virtual async Task<T?> SubscriberAsync()
+        public virtual async Task<T> SubscriberAsync()
         {
-            var entity = default(T?);
-
-            var consumer = new AsyncEventingBasicConsumer(_model);
-            consumer.Received += async (ch, ea) =>
+            try
             {
-                try
-                {
-                    var body = ea.Body.ToArray();
-                    var message = Encoding.UTF8.GetString(body);
-                    entity = JsonConvert.DeserializeObject<T>(message);
+                var data = _model.BasicGet(_queueName, true);
 
-                    _model.BasicAck(ea.DeliveryTag, false);
+                if (data == null)
+                    return await Task.FromResult<T>(null);
 
-                    await Task.Yield();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            };
+                var body = data.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                var entity = JsonConvert.DeserializeObject<T>(message);
 
-            _model.BasicConsume(_queueName, false, consumer);
-
-            return await Task.FromResult(entity);
+                return await Task.FromResult(entity);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public void Dispose()

@@ -3,7 +3,7 @@
     public interface IBaseEventBus<T> where T : class
     {
         Task PublisherAsync(T entity);
-        Task<T?> SubscriberAsync();
+        Task<T> SubscriberAsync();
         void Dispose();
     }
 }
