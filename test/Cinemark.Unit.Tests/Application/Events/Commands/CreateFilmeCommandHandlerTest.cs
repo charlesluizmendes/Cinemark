@@ -32,7 +32,7 @@ namespace Cinemark.Unit.Tests.Application.Events.Commands
                 .ReturnsAsync(filme);
 
             var filmeCreateEventBus = new Mock<IFilmeCreateEventBus>();
-            filmeCreateEventBus.Setup(x => x.SendMessageAsync(It.IsAny<Filme>()))
+            filmeCreateEventBus.Setup(x => x.PublisherAsync(It.IsAny<Filme>()))
                 .Returns(Task.FromResult(filme));
 
             var createFilmeCommandHandler = new Mock<CreateFilmeCommandHandler>(filmeRepositoryMock.Object, filmeCreateEventBus.Object);
