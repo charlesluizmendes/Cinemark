@@ -5,7 +5,7 @@ using MongoDB.Driver;
 
 namespace Cinemark.Infrastructure.Data.Repositories
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : class
+    public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         private readonly MongoContext _mongoContext;
         private IMongoCollection<T> _mongoCollection;

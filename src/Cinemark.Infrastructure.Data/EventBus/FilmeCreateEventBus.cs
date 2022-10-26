@@ -24,7 +24,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
 
         public override async Task HandleMessageAsync(Filme filme)
         {
-            if (filme!= null)
+            if (filme != null)
                 await _mongoCollection.InsertOneAsync(filme);
         }
     }
