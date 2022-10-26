@@ -84,7 +84,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
                     var entity = JsonConvert.DeserializeObject<T>(message);
 
                     if (entity != null)
-                        await HandleMessageAsync(entity);
+                        await HandlerMessageAsync(entity);
 
                     _model.BasicAck(ea.DeliveryTag, false);
 
@@ -101,7 +101,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
             await Task.Yield();
         }
 
-        public abstract Task HandleMessageAsync(T entity);
+        public abstract Task HandlerMessageAsync(T entity);
 
         public void Dispose()
         {
