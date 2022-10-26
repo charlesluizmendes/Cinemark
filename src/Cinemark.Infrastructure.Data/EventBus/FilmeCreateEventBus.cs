@@ -25,7 +25,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
             _mongoCollection = _mongoContext.GetCollection<Filme>(typeof(Filme).Name);
         }
 
-        public override async Task HandleMessageAsync(Filme filme)
+        public override async Task HandlerMessageAsync(Filme filme)
         {
             if (filme != null)
                 await _mongoCollection.InsertOneAsync(filme);

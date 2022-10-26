@@ -4,7 +4,7 @@
     {
         Task PublisherAsync(T entity);
         Task SubscriberAsync();
-        Task HandleMessageAsync(T entity);
+        Task HandlerMessageAsync(T entity);
         void Dispose();
     }
 }
