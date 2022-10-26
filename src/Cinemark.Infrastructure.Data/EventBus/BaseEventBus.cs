@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Cinemark.Infrastructure.Data.EventBus
 {
-    public class BaseEventBus<T> : IBaseEventBus<T> where T : class
+    public abstract class BaseEventBus<T> : IBaseEventBus<T> where T : class
     {
         private readonly IOptions<RabbitMqConfiguration> _rabbitMqConfiguration;
         private readonly string _queueName;
@@ -22,7 +22,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
             _rabbitMqConfiguration = rabbitMqConfiguration;
             _queueName = queueName;
 
-            #region ConnectionFactory
+            #region Factory
 
             var factory = new ConnectionFactory()
             {
@@ -34,11 +34,12 @@ namespace Cinemark.Infrastructure.Data.EventBus
             factory.DispatchConsumersAsync = true;
 
             _connection = factory.CreateConnection();
-            _model = _connection.CreateModel();
 
             #endregion
 
-            #region Queue
+            #region Queue e Exchange
+
+            _model = _connection.CreateModel();
 
             _model.ExchangeDeclare(_queueName + "_DeadLetter_Exchange", ExchangeType.Fanout);
             _model.QueueDeclare(_queueName + "_DeadLetter_Queue", true, false, false, null);
@@ -100,10 +101,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
             await Task.Yield();
         }
 
-        public virtual async Task HandleMessageAsync(T entity)
-        {
-            await Task.Yield();
-        }
+        public abstract Task HandleMessageAsync(T entity);
 
         public void Dispose()
         {
