@@ -13,8 +13,8 @@ namespace Cinemark.Infrastructure.Data.EventBus
         private readonly IOptions<RabbitMqConfiguration> _rabbitMqConfiguration;
         private readonly string _queueName;
 
-        private readonly IConnection _connection;
-        private readonly IModel _model;
+        private IConnection? _connection;
+        private IModel? _model;
 
         public BaseEventBus(IOptions<RabbitMqConfiguration> rabbitMqConfiguration,
             string queueName)
@@ -22,40 +22,40 @@ namespace Cinemark.Infrastructure.Data.EventBus
             _rabbitMqConfiguration = rabbitMqConfiguration;
             _queueName = queueName;
 
-            #region Factory
+            TryConnect();
+            Queue();
+        }
 
-            var factory = new ConnectionFactory()
+        public void TryConnect()
+        {
+            var factory = new ConnectionFactory
             {
                 HostName = _rabbitMqConfiguration.Value.HostName,
                 UserName = _rabbitMqConfiguration.Value.UserName,
-                Password = _rabbitMqConfiguration.Value.Password
+                Password = _rabbitMqConfiguration.Value.Password,
+                DispatchConsumersAsync = true
             };
 
-            factory.DispatchConsumersAsync = true;
-
             _connection = factory.CreateConnection();
+        }
 
-            #endregion
-
-            #region Queue e Exchange
-
+        public void Queue()
+        {
             _model = _connection.CreateModel();
 
-            _model.ExchangeDeclare(_queueName + "_DeadLetter_Exchange", ExchangeType.Fanout);
-            _model.QueueDeclare(_queueName + "_DeadLetter_Queue", true, false, false, null);
-            _model.QueueBind(_queueName + "_DeadLetter_Queue", _queueName + "_DeadLetter_Exchange", "");
+            _model.ExchangeDeclare(_queueName + "_DeadLetter", ExchangeType.Fanout);
+            _model.QueueDeclare(_queueName + "_DeadLetter", true, false, false, null);
+            _model.QueueBind(_queueName + "_DeadLetter", _queueName + "_DeadLetter", "");
 
             var arguments = new Dictionary<string, object>()
             {
-                { "x-dead-letter-exchange", _queueName + "_DeadLetter_Exchange" }
+                { "x-dead-letter-exchange", _queueName + "_DeadLetter" }
             };
 
             _model.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: arguments);
+        }     
 
-            #endregion
-        }
-
-        public virtual async Task PublisherAsync(T entity)
+        public async Task PublisherAsync(T entity)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
             }
         }
 
-        public virtual async Task SubscriberAsync()
+        public async Task SubscriberAsync()
         {
             var consumer = new AsyncEventingBasicConsumer(_model);
             consumer.Received += async (ch, ea) =>
