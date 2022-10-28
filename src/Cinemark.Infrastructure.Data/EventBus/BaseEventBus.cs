@@ -52,7 +52,8 @@ namespace Cinemark.Infrastructure.Data.EventBus
                 { "x-dead-letter-exchange", _queueName + "_DeadLetter" }
             };
 
-            _model.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: arguments);
+            _model.QueueDeclare(queue: _queueName, durable: true, exclusive: false, autoDelete: false, arguments: arguments);
+            _model.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
         }     
 
         public async Task PublisherAsync(T entity)
