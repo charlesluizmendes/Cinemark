@@ -8,12 +8,12 @@ using Cinemark.Domain.Interfaces.Services;
 using Cinemark.Domain.Models;
 using Cinemark.Infrastructure.Data.Context;
 using Cinemark.Infrastructure.Data.EventBus;
-using Cinemark.Infrastructure.Data.EventBus.Common;
 using Cinemark.Infrastructure.Data.Repositories;
 using Cinemark.Infrastructure.Data.Services;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Cinemark.Infrastructure.IoC
 {
@@ -21,6 +21,8 @@ namespace Cinemark.Infrastructure.IoC
     {
         public static void Register(IServiceCollection container)
         {
+
+
             // Application
 
             container.AddTransient<IRequestHandler<GetFilmeQuery, IEnumerable<Filme>>, GetFilmeQueryHandler>();
@@ -35,13 +37,10 @@ namespace Cinemark.Infrastructure.IoC
 
             // Infrastructure
 
-            container.AddSingleton<MongoContext>();                        
+            container.AddTransient<MongoContext>();                        
 
-            container.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             container.AddScoped<IFilmeRepository, FilmeRepository>();
             container.AddScoped<IUsuarioRepository, UsuarioRepository>();
-
-            container.AddSingleton<ConnectionEventBus>();
 
             container.AddSingleton<IFilmeCreateEventBus, FilmeCreateEventBus>();
             container.AddSingleton<IFilmeUpdateEventBus, FilmeUpdateEventBus>();

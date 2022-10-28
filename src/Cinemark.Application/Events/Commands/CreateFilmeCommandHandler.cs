@@ -20,7 +20,7 @@ namespace Cinemark.Application.Events.Commands
         public async Task<Filme> Handle(CreateFilmeCommand request, CancellationToken cancellationToken)
         {
             var result = await _filmeRepository.InsertAsync(request.Filme);
-            await _filmeCreateEventBus.SendMessageAsync(result);
+            await _filmeCreateEventBus.PublisherAsync(result);
 
             return result;
         }
