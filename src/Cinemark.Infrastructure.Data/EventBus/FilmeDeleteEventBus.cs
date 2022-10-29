@@ -27,8 +27,15 @@ namespace Cinemark.Infrastructure.Data.EventBus
 
         public override async Task HandlerMessageAsync(Filme filme)
         {
-            if (filme != null)
-                await _mongoCollection.DeleteOneAsync(Builders<Filme>.Filter.Eq("_id", filme.Id));
+            try
+            {
+                if (filme != null)
+                    await _mongoCollection.DeleteOneAsync(Builders<Filme>.Filter.Eq("_id", filme.Id));
+            }
+            catch (Exception)
+            {
+                throw;
+            }            
         }
     }
 }
