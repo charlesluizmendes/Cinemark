@@ -13,8 +13,10 @@ namespace Cinemark.Infrastructure.Services.Consumer
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            await _filmeDeleteEventBus.SubscriberAsync();
+        {          
+            await _filmeDeleteEventBus.SubscriberAsync(async (filme, stoppingToken) =>
+                await _filmeDeleteEventBus.HandlerMessageAsync(filme)
+            );
         }
     }
 }

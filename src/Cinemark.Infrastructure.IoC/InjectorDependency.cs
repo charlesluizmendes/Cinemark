@@ -39,14 +39,14 @@ namespace Cinemark.Infrastructure.IoC
 
             container.AddTransient<MongoContext>();                        
 
-            container.AddScoped<IFilmeRepository, FilmeRepository>();
-            container.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            container.AddTransient<IFilmeRepository, FilmeRepository>();
+            container.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
-            container.AddSingleton<IFilmeCreateEventBus, FilmeCreateEventBus>();
-            container.AddSingleton<IFilmeUpdateEventBus, FilmeUpdateEventBus>();
-            container.AddSingleton<IFilmeDeleteEventBus, FilmeDeleteEventBus>();
+            container.AddTransient<IFilmeCreateEventBus, FilmeCreateEventBus>();
+            container.AddTransient<IFilmeUpdateEventBus, FilmeUpdateEventBus>();
+            container.AddTransient<IFilmeDeleteEventBus, FilmeDeleteEventBus>();
 
-            container.AddScoped<ITokenService, TokenService>();
+            container.AddTransient<ITokenService, TokenService>();
         }
     }
 }

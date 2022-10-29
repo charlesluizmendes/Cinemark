@@ -5,8 +5,7 @@
         void TryConnect();
         void Queue();
         Task PublisherAsync(T entity);
-        Task SubscriberAsync();
-        Task HandlerMessageAsync(T entity);
+        Task SubscriberAsync(Func<T, CancellationToken, Task> entity);
         void Dispose();
     }
 }

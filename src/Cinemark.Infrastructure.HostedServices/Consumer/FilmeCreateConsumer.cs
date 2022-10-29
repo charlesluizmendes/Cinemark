@@ -1,4 +1,5 @@
 ﻿using Cinemark.Domain.Interfaces.EventBus;
+using Cinemark.Domain.Models;
 using Microsoft.Extensions.Hosting;
 
 namespace Cinemark.Infrastructure.Services.Consumer
@@ -14,7 +15,9 @@ namespace Cinemark.Infrastructure.Services.Consumer
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await _filmeCreateEventBus.SubscriberAsync();
+            await _filmeCreateEventBus.SubscriberAsync(async (filme, stoppingToken) =>
+                await _filmeCreateEventBus.HandlerMessageAsync(filme)
+            );        
         }
     }
 }

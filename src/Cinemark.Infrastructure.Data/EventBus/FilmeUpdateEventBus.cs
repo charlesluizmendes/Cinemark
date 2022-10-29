@@ -23,19 +23,18 @@ namespace Cinemark.Infrastructure.Data.EventBus
 
             _mongoContext = mongoContext;
             _mongoCollection = _mongoContext.GetCollection<Filme>(typeof(Filme).Name);
-        }       
+        }
 
-        public override async Task HandlerMessageAsync(Filme filme)
+        public async Task HandlerMessageAsync(Filme filme)
         {
             try
             {
-                if (filme != null)
-                    await _mongoCollection.ReplaceOneAsync(Builders<Filme>.Filter.Eq("_id", filme.Id), filme);
+                await _mongoCollection.ReplaceOneAsync(Builders<Filme>.Filter.Eq("_id", filme.Id), filme);
             }
             catch (Exception)
             {
                 throw;
-            }            
+            }
         }
     }
 }
