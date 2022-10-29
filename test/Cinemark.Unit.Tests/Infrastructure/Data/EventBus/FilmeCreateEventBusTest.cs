@@ -1,7 +1,9 @@
 ﻿using Cinemark.Domain.Interfaces.EventBus;
 using Cinemark.Domain.Models;
 using FluentAssertions;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Moq;
+using System.Threading;
 using Xunit;
 
 namespace Cinemark.Unit.Tests.Infrastructure.Data.EventBus
@@ -32,20 +34,12 @@ namespace Cinemark.Unit.Tests.Infrastructure.Data.EventBus
         [Fact]
         public void SubscriberAsync()
         {
-            var filme = new Filme()
+            var filmeCreateEventBus = new Mock<IFilmeCreateEventBus>();            
+
+            var result = filmeCreateEventBus.Object.SubscriberAsync((message, cancellationToken) => 
             {
-                Id = 1,
-                Nome = "E o Vento Levou",
-                Categoria = "Drama",
-                FaixaEtaria = 12,
-                DataLancamento = new DateTime(1971, 10, 3)
-            };
-
-            var filmeCreateEventBus = new Mock<IFilmeCreateEventBus>();
-            filmeCreateEventBus.Setup(x => x.SubscriberAsync())
-                .Returns(Task.CompletedTask);
-
-            var result = filmeCreateEventBus.Object.SubscriberAsync();
+                return Task.FromResult(true);
+            });
 
             result.IsCompletedSuccessfully.Should().BeTrue();
         }       

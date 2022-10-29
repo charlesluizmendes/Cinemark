@@ -9,7 +9,6 @@ namespace Cinemark.Infrastructure.Data.EventBus
 {
     public class FilmeDeleteEventBus : BaseEventBus<Filme>, IFilmeDeleteEventBus
     {
-        private readonly IOptions<RabbitMqConfiguration> _rabbitMqConfiguration;
         private const string queueName = "Filme_Delete";
 
         private readonly MongoContext _mongoContext;
@@ -19,23 +18,22 @@ namespace Cinemark.Infrastructure.Data.EventBus
             MongoContext mongoContext)
             : base(rabbitMqConfiguration, queueName)
         {
-            _rabbitMqConfiguration = rabbitMqConfiguration;
-
             _mongoContext = mongoContext;
             _mongoCollection = _mongoContext.GetCollection<Filme>(typeof(Filme).Name);
-        }
+        }       
 
-        public override async Task HandlerMessageAsync(Filme filme)
+        public async Task<bool> HandlerMessageAsync(Filme filme)
         {
             try
             {
-                if (filme != null)
-                    await _mongoCollection.DeleteOneAsync(Builders<Filme>.Filter.Eq("_id", filme.Id));
+                await _mongoCollection.DeleteOneAsync(Builders<Filme>.Filter.Eq("_id", filme.Id));     
+                
+                return true;
             }
             catch (Exception)
             {
                 throw;
-            }            
+            }
         }
     }
 }
