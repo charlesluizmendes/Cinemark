@@ -73,7 +73,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
             }
         }
 
-        public async Task SubscriberAsync(Func<T, CancellationToken, Task> entity)
+        public async Task SubscriberAsync(Func<T, CancellationToken, Task<bool>> entity)
         {
             var consumer = new AsyncEventingBasicConsumer(_model);
             consumer.Received += async (ch, ea) =>
@@ -85,9 +85,22 @@ namespace Cinemark.Infrastructure.Data.EventBus
                     var message = JsonConvert.DeserializeObject<T>(text);
 
                     if (message != null)
-                        entity(message, default).GetAwaiter().GetResult();
+                    {
+                        var result = entity(message, default).GetAwaiter().GetResult();
 
-                    _model.BasicAck(ea.DeliveryTag, false);
+                        if (result)
+                        {
+                            _model.BasicAck(ea.DeliveryTag, false);
+                        }
+                        else
+                        {
+                            _model.BasicNack(ea.DeliveryTag, false, false);
+                        }
+                    }                        
+                    else
+                    {
+                        _model.BasicAck(ea.DeliveryTag, false);
+                    }                    
 
                     await Task.Yield();
                 }

@@ -38,7 +38,7 @@ namespace Cinemark.Unit.Tests.Infrastructure.Data.EventBus
 
             var result = filmeCreateEventBus.Object.SubscriberAsync((message, cancellationToken) => 
             {
-                return Task.CompletedTask;
+                return Task.FromResult(true);
             });
 
             result.IsCompletedSuccessfully.Should().BeTrue();

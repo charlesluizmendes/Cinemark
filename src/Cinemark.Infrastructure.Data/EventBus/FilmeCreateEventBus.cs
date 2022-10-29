@@ -22,11 +22,13 @@ namespace Cinemark.Infrastructure.Data.EventBus
             _mongoCollection = _mongoContext.GetCollection<Filme>(typeof(Filme).Name);
         }
 
-        public async Task HandlerMessageAsync(Filme filme)
+        public async Task<bool> HandlerMessageAsync(Filme filme)
         {
             try
             {
                 await _mongoCollection.InsertOneAsync(filme);
+
+                return true;
             }
             catch (Exception)
             {
