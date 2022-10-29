@@ -9,7 +9,6 @@ namespace Cinemark.Infrastructure.Data.EventBus
 {
     public class FilmeUpdateEventBus : BaseEventBus<Filme>, IFilmeUpdateEventBus
     {
-        private readonly IOptions<RabbitMqConfiguration> _rabbitMqConfiguration;
         private const string queueName = "Filme_Update";
 
         private readonly MongoContext _mongoContext;
@@ -19,23 +18,22 @@ namespace Cinemark.Infrastructure.Data.EventBus
             MongoContext mongoContext)
             : base(rabbitMqConfiguration, queueName)
         {
-            _rabbitMqConfiguration = rabbitMqConfiguration;
-
             _mongoContext = mongoContext;
             _mongoCollection = _mongoContext.GetCollection<Filme>(typeof(Filme).Name);
-        }       
+        }
 
-        public override async Task HandlerMessageAsync(Filme filme)
+        public async Task<bool> HandlerMessageAsync(Filme filme)
         {
             try
             {
-                if (filme != null)
-                    await _mongoCollection.ReplaceOneAsync(Builders<Filme>.Filter.Eq("_id", filme.Id), filme);
+                await _mongoCollection.ReplaceOneAsync(Builders<Filme>.Filter.Eq("_id", filme.Id), filme);
+
+                return true;
             }
             catch (Exception)
             {
                 throw;
-            }            
+            }
         }
     }
 }

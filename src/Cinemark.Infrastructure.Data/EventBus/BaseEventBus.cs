@@ -73,7 +73,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
             }
         }
 
-        public async Task SubscriberAsync()
+        public async Task SubscriberAsync(Func<T, CancellationToken, Task<bool>> entity)
         {
             var consumer = new AsyncEventingBasicConsumer(_model);
             consumer.Received += async (ch, ea) =>
@@ -81,13 +81,26 @@ namespace Cinemark.Infrastructure.Data.EventBus
                 try
                 {
                     var body = ea.Body.ToArray();
-                    var message = Encoding.UTF8.GetString(body);
-                    var entity = JsonConvert.DeserializeObject<T>(message);
+                    var text = Encoding.UTF8.GetString(body);
+                    var message = JsonConvert.DeserializeObject<T>(text);
 
-                    if (entity != null)
-                        await HandlerMessageAsync(entity);
+                    if (message != null)
+                    {
+                        var result = entity(message, default).GetAwaiter().GetResult();
 
-                    _model.BasicAck(ea.DeliveryTag, false);
+                        if (result)
+                        {
+                            _model.BasicAck(ea.DeliveryTag, false);
+                        }
+                        else
+                        {
+                            _model.BasicNack(ea.DeliveryTag, false, false);
+                        }
+                    }                        
+                    else
+                    {
+                        _model.BasicAck(ea.DeliveryTag, false);
+                    }                    
 
                     await Task.Yield();
                 }
@@ -102,14 +115,12 @@ namespace Cinemark.Infrastructure.Data.EventBus
             await Task.Yield();
         }
 
-        public abstract Task HandlerMessageAsync(T entity);
-
         public void Dispose()
         {
             if (_model.IsOpen)
                 _model.Close();
             if (_connection.IsOpen)
                 _connection.Close();
-        }
+        }        
     }
 }
