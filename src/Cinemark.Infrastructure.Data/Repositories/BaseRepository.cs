@@ -1,4 +1,5 @@
-﻿using Cinemark.Domain.Interfaces.Repositories;
+﻿using Cinemark.Domain.Interfaces.EventBus;
+using Cinemark.Domain.Interfaces.Repositories;
 using Cinemark.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
@@ -10,13 +11,16 @@ namespace Cinemark.Infrastructure.Data.Repositories
         private readonly MongoContext _mongoContext;
         private IMongoCollection<T> _mongoCollection;
         private readonly SqlServerContext _sqlServerContext;
+        private readonly IBaseEventBus<T> _eventBus;
 
         public BaseRepository(MongoContext mongoContext,
-            SqlServerContext sqlServerContext)
+            SqlServerContext sqlServerContext,
+            IBaseEventBus<T> eventBus)
         {
             _mongoContext = mongoContext;
             _mongoCollection = _mongoContext.GetCollection<T>(typeof(T).Name);
             _sqlServerContext = sqlServerContext;
+            _eventBus = eventBus;
         }
 
         public virtual async Task<IEnumerable<T>> GetAllAsync()
@@ -48,6 +52,7 @@ namespace Cinemark.Infrastructure.Data.Repositories
             try
             {
                 await _sqlServerContext.Set<T>().AddAsync(entity);
+                await _eventBus.PublisherAsync(typeof(T).Name + "_Insert", entity);
                 await _sqlServerContext.SaveChangesAsync();
 
                 return entity;
@@ -63,6 +68,7 @@ namespace Cinemark.Infrastructure.Data.Repositories
             try
             {
                 _sqlServerContext.Update(entity);
+                await _eventBus.PublisherAsync(typeof(T).Name + "_Update", entity);
                 await _sqlServerContext.SaveChangesAsync();
 
                 return entity;
@@ -78,6 +84,7 @@ namespace Cinemark.Infrastructure.Data.Repositories
             try
             {
                 _sqlServerContext.Set<T>().Remove(entity);
+                await _eventBus.PublisherAsync(typeof(T).Name + "_Delete", entity);
                 await _sqlServerContext.SaveChangesAsync();
 
                 return entity;

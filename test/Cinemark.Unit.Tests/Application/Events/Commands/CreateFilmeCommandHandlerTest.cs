@@ -31,11 +31,7 @@ namespace Cinemark.Unit.Tests.Application.Events.Commands
             filmeRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<Filme>()))
                 .ReturnsAsync(filme);
 
-            var filmeCreateEventBus = new Mock<IFilmeCreateEventBus>();
-            filmeCreateEventBus.Setup(x => x.PublisherAsync(It.IsAny<Filme>()))
-                .Returns(Task.FromResult(filme));
-
-            var createFilmeCommandHandler = new Mock<CreateFilmeCommandHandler>(filmeRepositoryMock.Object, filmeCreateEventBus.Object);
+            var createFilmeCommandHandler = new Mock<CreateFilmeCommandHandler>(filmeRepositoryMock.Object);
            
             var result = await createFilmeCommandHandler.Object.Handle(createFilmeCommand, new CancellationToken());
 

@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Cinemark.Unit.Tests.Infrastructure.Data.EventBus
 {
-    public class FilmeCreateEventBusTest
+    public class FilmeEventBusTest
     {
         [Fact]
         public void PublisherAsync()
@@ -22,11 +22,11 @@ namespace Cinemark.Unit.Tests.Infrastructure.Data.EventBus
                 DataLancamento = new DateTime(1971, 10, 3)
             };
 
-            var filmeCreateEventBus = new Mock<IFilmeCreateEventBus>();
-            filmeCreateEventBus.Setup(x => x.PublisherAsync(It.IsAny<Filme>()))
+            var filmeCreateEventBus = new Mock<IFilmeEventBus>();
+            filmeCreateEventBus.Setup(x => x.PublisherAsync("Filme_Insert", It.IsAny<Filme>()))
                 .Returns(Task.CompletedTask);            
 
-            var result = filmeCreateEventBus.Object.PublisherAsync(filme);
+            var result = filmeCreateEventBus.Object.PublisherAsync("Filme_Insert", filme);
 
             result.IsCompletedSuccessfully.Should().BeTrue();
         }
@@ -34,9 +34,9 @@ namespace Cinemark.Unit.Tests.Infrastructure.Data.EventBus
         [Fact]
         public void SubscriberAsync()
         {
-            var filmeCreateEventBus = new Mock<IFilmeCreateEventBus>();            
+            var filmeCreateEventBus = new Mock<IFilmeEventBus>();            
 
-            var result = filmeCreateEventBus.Object.SubscriberAsync((message, cancellationToken) => 
+            var result = filmeCreateEventBus.Object.SubscriberAsync("Filme_Insert", (message, cancellationToken) => 
             {
                 return Task.FromResult(true);
             });
