@@ -8,21 +8,21 @@ namespace Cinemark.Application.Events.Commands
     public class CreateFilmeCommandHandler : IRequestHandler<CreateFilmeCommand, Filme>
     {
         private readonly IFilmeRepository _filmeRepository;
-        private readonly IFilmeCreateEventBus _filmeCreateEventBus;
+        private readonly IFilmeEventBus _filmeEventBus;
 
         public CreateFilmeCommandHandler(IFilmeRepository filmeRepository,
-            IFilmeCreateEventBus filmeCreateEventBus)
+            IFilmeEventBus filmeEventBus)
         {
             _filmeRepository = filmeRepository;
-            _filmeCreateEventBus = filmeCreateEventBus;
+            _filmeEventBus = filmeEventBus;
         }
 
         public async Task<Filme> Handle(CreateFilmeCommand request, CancellationToken cancellationToken)
         {
-            var result = await _filmeRepository.InsertAsync(request.Filme);
-            await _filmeCreateEventBus.PublisherAsync(result);
+            var filme = await _filmeRepository.InsertAsync(request.Filme);
+            await _filmeEventBus.PublisherAsync(typeof(Filme).Name + "_Insert", filme);
 
-            return result;
+            return filme;
         }
     }
 }

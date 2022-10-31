@@ -22,7 +22,6 @@ namespace Cinemark.Infrastructure.IoC
         public static void Register(IServiceCollection container)
         {
 
-
             // Application
 
             container.AddTransient<IRequestHandler<GetFilmeQuery, IEnumerable<Filme>>, GetFilmeQueryHandler>();
@@ -37,14 +36,12 @@ namespace Cinemark.Infrastructure.IoC
 
             // Infrastructure
 
-            container.AddTransient<MongoContext>();                        
+            container.AddTransient<MongoContext>();
 
             container.AddTransient<IFilmeRepository, FilmeRepository>();
             container.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
-            container.AddTransient<IFilmeCreateEventBus, FilmeCreateEventBus>();
-            container.AddTransient<IFilmeUpdateEventBus, FilmeUpdateEventBus>();
-            container.AddTransient<IFilmeDeleteEventBus, FilmeDeleteEventBus>();
+            container.AddTransient<IFilmeEventBus, FilmeEventBus>();
 
             container.AddTransient<ITokenService, TokenService>();
         }

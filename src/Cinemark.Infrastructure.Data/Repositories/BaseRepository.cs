@@ -1,4 +1,5 @@
-﻿using Cinemark.Domain.Interfaces.Repositories;
+﻿using Cinemark.Domain.Interfaces.EventBus;
+using Cinemark.Domain.Interfaces.Repositories;
 using Cinemark.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
