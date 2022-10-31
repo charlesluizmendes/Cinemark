@@ -15,15 +15,15 @@ namespace Cinemark.Infrastructure.HostedServices.Consumer
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await _filmeEventBus.SubscriberAsync(typeof(Usuario).Name + "_Insert", async (filme, stoppingToken) => 
+            await _filmeEventBus.SubscriberAsync(typeof(Filme).Name + "_Insert", async (filme, stoppingToken) => 
                 await _filmeEventBus.HandlerInsertAsync(filme)
             );
 
-            await _filmeEventBus.SubscriberAsync(typeof(Usuario).Name + "_Update", async (filme, stoppingToken) =>
+            await _filmeEventBus.SubscriberAsync(typeof(Filme).Name + "_Update", async (filme, stoppingToken) =>
                 await _filmeEventBus.HandlerUpdateAsync(filme)
             );
 
-            await _filmeEventBus.SubscriberAsync(typeof(Usuario).Name + "_Delete", async (filme, stoppingToken) =>
+            await _filmeEventBus.SubscriberAsync(typeof(Filme).Name + "_Delete", async (filme, stoppingToken) =>
                 await _filmeEventBus.HandlerDeleteAsync(filme)
             );
         }
