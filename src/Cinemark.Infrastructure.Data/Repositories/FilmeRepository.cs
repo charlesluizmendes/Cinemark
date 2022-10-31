@@ -1,4 +1,5 @@
-﻿using Cinemark.Domain.Interfaces.Repositories;
+﻿using Cinemark.Domain.Interfaces.EventBus;
+using Cinemark.Domain.Interfaces.Repositories;
 using Cinemark.Domain.Models;
 using Cinemark.Infrastructure.Data.Context;
 using MongoDB.Driver;
@@ -12,7 +13,8 @@ namespace Cinemark.Infrastructure.Data.Repositories
         private readonly SqlServerContext _sqlServercontext;
 
         public FilmeRepository(MongoContext mongoContext,
-            SqlServerContext sqlServercontext) 
+            SqlServerContext sqlServercontext,
+            IFilmeEventBus filmeEventBus) 
             : base(mongoContext, sqlServercontext)
         {
             _mongoContext = mongoContext;

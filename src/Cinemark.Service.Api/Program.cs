@@ -5,8 +5,8 @@ using Cinemark.Infrastructure.Data.Context;
 using Cinemark.Infrastructure.Data.Context.Option;
 using Cinemark.Infrastructure.Data.EventBus.Option;
 using Cinemark.Infrastructure.Data.Services.Option;
+using Cinemark.Infrastructure.HostedServices.Consumer;
 using Cinemark.Infrastructure.IoC;
-using Cinemark.Infrastructure.Services.Consumer;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -38,9 +38,7 @@ MongoContext.OnModelCreating();
 // RabbitMQ
 
 builder.Services.Configure<RabbitMqConfiguration>(builder.Configuration.GetSection("RabbitMq"));
-builder.Services.AddHostedService<FilmeCreateConsumer>();
-builder.Services.AddHostedService<FilmeUpdateConsumer>();
-builder.Services.AddHostedService<FilmeDeleteConsumer>();
+builder.Services.AddHostedService<FilmeConsumer>();
 
 // MediatR
 

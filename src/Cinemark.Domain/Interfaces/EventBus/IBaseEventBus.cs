@@ -3,9 +3,9 @@
     public interface IBaseEventBus<T> where T : class
     {
         void TryConnect();
-        void Queue();
-        Task PublisherAsync(T entity);
-        Task SubscriberAsync(Func<T, CancellationToken, Task<bool>> entity);
+        void Queue(string queueName);
+        Task PublisherAsync(string queueName, T entity);
+        Task SubscriberAsync(string queueName, Func<T, CancellationToken, Task<bool>> entity);
         void Dispose();
     }
 }
