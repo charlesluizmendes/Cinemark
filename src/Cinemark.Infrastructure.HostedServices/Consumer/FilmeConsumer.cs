@@ -1,7 +1,7 @@
 ﻿using Cinemark.Domain.Interfaces.EventBus;
 using Microsoft.Extensions.Hosting;
 
-namespace Cinemark.Infrastructure.Services.Consumer
+namespace Cinemark.Infrastructure.HostedServices.Consumer
 {
     public class FilmeConsumer : BackgroundService
     {

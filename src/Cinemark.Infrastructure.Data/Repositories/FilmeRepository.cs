@@ -12,18 +12,14 @@ namespace Cinemark.Infrastructure.Data.Repositories
         private IMongoCollection<Filme> _mongoCollection;
         private readonly SqlServerContext _sqlServercontext;
 
-        private readonly IFilmeEventBus _filmeEventBus;
-
         public FilmeRepository(MongoContext mongoContext,
             SqlServerContext sqlServercontext,
             IFilmeEventBus filmeEventBus) 
-            : base(mongoContext, sqlServercontext, filmeEventBus)
+            : base(mongoContext, sqlServercontext)
         {
             _mongoContext = mongoContext;
             _mongoCollection = _mongoContext.GetCollection<Filme>(typeof(Filme).Name);
             _sqlServercontext = sqlServercontext;
-
-            _filmeEventBus = filmeEventBus;
         }
     }
 }

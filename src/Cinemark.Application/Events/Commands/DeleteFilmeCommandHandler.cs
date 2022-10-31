@@ -8,15 +8,21 @@ namespace Cinemark.Application.Events.Commands
     public class DeleteFilmeCommandHandler : IRequestHandler<DeleteFilmeCommand, Filme>
     {
         private readonly IFilmeRepository _filmeRepository;
+        private readonly IFilmeEventBus _filmeEventBus;
 
-        public DeleteFilmeCommandHandler(IFilmeRepository filmeRepository)
+        public DeleteFilmeCommandHandler(IFilmeRepository filmeRepository,
+            IFilmeEventBus filmeEventBus)
         {
             _filmeRepository = filmeRepository;
+            _filmeEventBus = filmeEventBus;
         }
 
         public async Task<Filme> Handle(DeleteFilmeCommand request, CancellationToken cancellationToken)
         {
-            return await _filmeRepository.DeleteAsync(request.Filme);
+            var filme = await _filmeRepository.DeleteAsync(request.Filme);
+            await _filmeEventBus.PublisherAsync(typeof(Filme).Name + "_Delete", filme);
+
+            return filme;
         }
     }
 }

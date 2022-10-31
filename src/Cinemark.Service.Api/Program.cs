@@ -7,7 +7,6 @@ using Cinemark.Infrastructure.Data.EventBus.Option;
 using Cinemark.Infrastructure.Data.Services.Option;
 using Cinemark.Infrastructure.HostedServices.Consumer;
 using Cinemark.Infrastructure.IoC;
-using Cinemark.Infrastructure.Services.Consumer;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -40,7 +39,6 @@ MongoContext.OnModelCreating();
 
 builder.Services.Configure<RabbitMqConfiguration>(builder.Configuration.GetSection("RabbitMq"));
 builder.Services.AddHostedService<FilmeConsumer>();
-builder.Services.AddHostedService<UsuarioConsumer>();
 
 // MediatR
 

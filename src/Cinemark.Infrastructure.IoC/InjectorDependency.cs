@@ -38,13 +38,10 @@ namespace Cinemark.Infrastructure.IoC
 
             container.AddTransient<MongoContext>();
 
-            container.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             container.AddTransient<IFilmeRepository, FilmeRepository>();
             container.AddTransient<IUsuarioRepository, UsuarioRepository>();
 
-            container.AddTransient(typeof(IBaseEventBus<>), typeof(BaseEventBus<>));
             container.AddTransient<IFilmeEventBus, FilmeEventBus>();
-            container.AddTransient<IUsuarioEventBus, UsuarioEventBus>();
 
             container.AddTransient<ITokenService, TokenService>();
         }
