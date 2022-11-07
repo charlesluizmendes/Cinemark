@@ -14,8 +14,8 @@ namespace Cinemark.Infrastructure.Data.EventBus
     {
         private readonly IOptions<RabbitMqConfiguration> _rabbitMqConfiguration;
 
-        private IConnection? _connection;
-        private IModel? _model;
+        private IConnection _connection;
+        private IModel _model;
 
         public BaseEventBus(IOptions<RabbitMqConfiguration> rabbitMqConfiguration)
         {

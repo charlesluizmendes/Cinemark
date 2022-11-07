@@ -13,10 +13,10 @@ namespace Cinemark.Infrastructure.Data.Services
 {
     public class TokenService : ITokenService
     {
-        private readonly string? _key;
-        private readonly string? _issuer;
-        private readonly string? _audience;
-        private readonly string? _expires;
+        private readonly string _key;
+        private readonly string _issuer;
+        private readonly string _audience;
+        private readonly string _expires;
 
         public TokenService(IOptions<JwtConfiguration> jwtOptions)
         {
