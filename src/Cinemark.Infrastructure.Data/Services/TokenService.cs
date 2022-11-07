@@ -26,39 +26,45 @@ namespace Cinemark.Infrastructure.Data.Services
             _expires = jwtOptions.Value.Expires;
         }
 
-        public async Task<ResultData<Token>> CreateTokenAsync(Usuario usuario)
+        public async Task<Token> CreateTokenAsync(Usuario usuario)
         {
-            var claims = new[]
+            try
+            {
+                var claims = new[]
                 {
                      new Claim(ClaimTypes.Email, usuario.Email.ToString()),
                 };
 
-            var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_key != null ? _key : "")
-                );
+                var key = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(_key != null ? _key : "")
+                    );
 
-            var creds = new SigningCredentials(
-                key, SecurityAlgorithms.HmacSha256
-                );
+                var creds = new SigningCredentials(
+                    key, SecurityAlgorithms.HmacSha256
+                    );
 
-            var jwt = new JwtSecurityToken(
-                issuer: _issuer,
-                audience: _audience,
-                expires: DateTime.Now.AddMinutes(Convert.ToInt32(_expires)),
-                claims: claims,
-                signingCredentials: creds
-                );
+                var jwt = new JwtSecurityToken(
+                    issuer: _issuer,
+                    audience: _audience,
+                    expires: DateTime.Now.AddMinutes(Convert.ToInt32(_expires)),
+                    claims: claims,
+                    signingCredentials: creds
+                    );
 
-            var accessKey = new JwtSecurityTokenHandler().WriteToken(jwt);
-            var validTo = jwt.ValidTo.ToString();
+                var accessKey = new JwtSecurityTokenHandler().WriteToken(jwt);
+                var validTo = jwt.ValidTo.ToString();
 
-            var result = await Task.FromResult(new Token
-            {                
-                AccessKey = JwtBearerDefaults.AuthenticationScheme + " " + accessKey,
-                ValidTo = validTo                
-            });
+                return await Task.FromResult(new Token
+                {
+                    AccessKey = JwtBearerDefaults.AuthenticationScheme + " " + accessKey,
+                    ValidTo = validTo
+                });             
+            }
+            catch (Exception)
+            {
 
-            return new SuccessData<Token>(result);
+                throw;
+            }            
         }
     }
 }

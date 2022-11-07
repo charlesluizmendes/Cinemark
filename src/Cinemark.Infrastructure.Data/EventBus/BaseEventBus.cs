@@ -75,7 +75,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
             }
         }
 
-        public async Task SubscriberAsync(string queueName, Func<T, CancellationToken, Task<ResultData<bool>>> entity)
+        public async Task SubscriberAsync(string queueName, Func<T, CancellationToken, Task<bool>> entity)
         {
             var consumer = new AsyncEventingBasicConsumer(_model);
             consumer.Received += async (ch, ea) =>
@@ -90,7 +90,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
                     {
                         var result = entity(message, default).GetAwaiter().GetResult();
 
-                        if (result.Success)
+                        if (result)
                         {
                             _model.BasicAck(ea.DeliveryTag, false);
                         }

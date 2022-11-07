@@ -22,12 +22,12 @@ namespace Cinemark.Application.Events.Commands
         {
             var filme = await _filmeRepository.UpdateAsync(request.Filme);
 
-            if (!filme.Success)
+            if (filme == null)
                 return new ErrorData<Filme>("Não foi possível alterar o Filme");
 
-            await _filmeEventBus.PublisherAsync(typeof(Filme).Name + "_Update", filme.Data);
+            await _filmeEventBus.PublisherAsync(typeof(Filme).Name + "_Update", filme);
 
-            return new SuccessData<Filme>(filme.Data);
+            return new SuccessData<Filme>(filme);
         }
     }
 }

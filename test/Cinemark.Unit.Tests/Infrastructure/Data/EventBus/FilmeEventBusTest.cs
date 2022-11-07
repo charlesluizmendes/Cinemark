@@ -1,10 +1,7 @@
 ﻿using Cinemark.Domain.Interfaces.EventBus;
 using Cinemark.Domain.Models;
-using Cinemark.Domain.Models.Commom;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Moq;
-using System.Threading;
 using Xunit;
 
 namespace Cinemark.Unit.Tests.Infrastructure.Data.EventBus
@@ -39,7 +36,7 @@ namespace Cinemark.Unit.Tests.Infrastructure.Data.EventBus
 
             var result = filmeCreateEventBus.Object.SubscriberAsync("Filme_Insert", (message, cancellationToken) => 
             {
-                return Task.FromResult(new ResultData<bool>(true));
+                return Task.FromResult(true);
             });
 
             result.IsCompletedSuccessfully.Should().BeTrue();

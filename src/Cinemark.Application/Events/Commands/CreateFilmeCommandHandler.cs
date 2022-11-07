@@ -22,12 +22,12 @@ namespace Cinemark.Application.Events.Commands
         {
             var filme = await _filmeRepository.InsertAsync(request.Filme);
 
-            if (!filme.Success)
+            if (filme == null)
                 return new ErrorData<Filme>("O Filme já foi Cadastrado");
                 
-            await _filmeEventBus.PublisherAsync(typeof(Filme).Name + "_Insert", filme.Data);
+            await _filmeEventBus.PublisherAsync(typeof(Filme).Name + "_Insert", filme);
 
-            return new SuccessData<Filme>(filme.Data);
+            return new SuccessData<Filme>(filme);
         }
     }
 }

@@ -22,12 +22,12 @@ namespace Cinemark.Application.Events.Commands
         {
             var filme = await _filmeRepository.DeleteAsync(request.Filme);
 
-            if (!filme.Success)
+            if (filme == null)
                 return new ErrorData<Filme>("O Filme não foi encontrado");
 
-            await _filmeEventBus.PublisherAsync(typeof(Filme).Name + "_Delete", filme.Data);
+            await _filmeEventBus.PublisherAsync(typeof(Filme).Name + "_Delete", filme);
 
-            return new SuccessData<Filme>(filme.Data);
+            return new SuccessData<Filme>(filme);
         }
     }
 }

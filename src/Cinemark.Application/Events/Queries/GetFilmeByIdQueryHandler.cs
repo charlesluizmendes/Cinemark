@@ -18,10 +18,10 @@ namespace Cinemark.Application.Events.Queries
         {
             var filme = await _filmeRepository.GetByIdAsync(request.Id);
 
-            if (!filme.Success)
+            if (filme == null)
                 return new ErrorData<Filme>("O Filme não foi encontrado");
 
-            return new SuccessData<Filme>(filme.Data);
+            return new SuccessData<Filme>(filme);
         }
     }
 }

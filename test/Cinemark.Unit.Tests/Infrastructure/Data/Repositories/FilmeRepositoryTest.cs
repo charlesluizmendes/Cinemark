@@ -1,6 +1,5 @@
 ﻿using Cinemark.Domain.Interfaces.Repositories;
 using Cinemark.Domain.Models;
-using Cinemark.Domain.Models.Commom;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -23,15 +22,15 @@ namespace Cinemark.Unit.Tests.Infrastructure.Data.Repositories
 
             var filmeRepository = new Mock<IFilmeRepository>();
             filmeRepository.Setup(x => x.InsertAsync(It.IsAny<Filme>()))
-                .ReturnsAsync(new SuccessData<Filme>(filme));            
+                .ReturnsAsync(filme);            
             
             var result = await filmeRepository.Object.InsertAsync(filme);
 
-            result.Data.Id.Should().Be(1);
-            result.Data.Nome.Should().Be("E o Vento Levou");
-            result.Data.Categoria.Should().Be("Drama");
-            result.Data.FaixaEtaria.Should().Be(12);
-            result.Data.DataLancamento.Should().Be(new DateTime(1971, 10, 3));
+            result.Id.Should().Be(1);
+            result.Nome.Should().Be("E o Vento Levou");
+            result.Categoria.Should().Be("Drama");
+            result.FaixaEtaria.Should().Be(12);
+            result.DataLancamento.Should().Be(new DateTime(1971, 10, 3));
         }
     }
 }

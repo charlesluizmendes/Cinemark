@@ -22,15 +22,15 @@ namespace Cinemark.Application.Events.Queries
         {
             var usuario = await _usuarioRepository.GetUsuarioByEmailAndSenhaAsync(request.Usuario);
 
-            if (!usuario.Success)
+            if (usuario == null)
                 return new ErrorData<Token>("Usuário e/ou senha inválidos");
 
-            var token = await _tokenService.CreateTokenAsync(usuario.Data);
+            var token = await _tokenService.CreateTokenAsync(usuario);
 
-            if (!token.Success)
+            if (token == null)
                 return new ErrorData<Token>("Não foi possível criar o Token");
 
-            return new SuccessData<Token>(token.Data);
+            return new SuccessData<Token>(token);
         }
     }
 }

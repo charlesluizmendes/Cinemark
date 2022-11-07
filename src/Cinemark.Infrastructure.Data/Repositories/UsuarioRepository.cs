@@ -1,7 +1,5 @@
-﻿using Cinemark.Domain.Interfaces.EventBus;
-using Cinemark.Domain.Interfaces.Repositories;
+﻿using Cinemark.Domain.Interfaces.Repositories;
 using Cinemark.Domain.Models;
-using Cinemark.Domain.Models.Commom;
 using Cinemark.Infrastructure.Data.Context;
 using MongoDB.Driver;
 
@@ -22,13 +20,11 @@ namespace Cinemark.Infrastructure.Data.Repositories
             _sqlServercontext = sqlServercontext;
         }
 
-        public async Task<ResultData<Usuario>> GetUsuarioByEmailAndSenhaAsync(Usuario usuario)
+        public async Task<Usuario> GetUsuarioByEmailAndSenhaAsync(Usuario usuario)
         {
             try
             {
-                var result = await _mongoCollection.Find(x => x.Email == usuario.Email && x.Senha == usuario.Senha).FirstOrDefaultAsync();
-
-                return new SuccessData<Usuario>(result);
+                return await _mongoCollection.Find(x => x.Email == usuario.Email && x.Senha == usuario.Senha).FirstOrDefaultAsync();
             }
             catch (Exception)
             {

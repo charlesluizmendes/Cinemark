@@ -2,7 +2,6 @@
 using Cinemark.Domain.Interfaces.EventBus;
 using Cinemark.Domain.Interfaces.Repositories;
 using Cinemark.Domain.Models;
-using Cinemark.Domain.Models.Commom;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -25,7 +24,7 @@ namespace Cinemark.Unit.Tests.Application.Events.Commands
 
             var filmeRepositoryMock = new Mock<IFilmeRepository>();
             filmeRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<Filme>()))
-                .ReturnsAsync(new SuccessData<Filme>(filme));
+                .ReturnsAsync(filme);
 
             var filmeEventBusMock = new Mock<IFilmeEventBus>();
             filmeEventBusMock.Setup(x => x.PublisherAsync("Filme_Insert", It.IsAny<Filme>()))

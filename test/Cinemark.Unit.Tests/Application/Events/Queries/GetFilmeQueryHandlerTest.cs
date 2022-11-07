@@ -27,7 +27,7 @@ namespace Cinemark.Unit.Tests.Application.Events.Queries
 
             var filmeRepositoryMock = new Mock<IFilmeRepository>();
             filmeRepositoryMock.Setup(x => x.GetAllAsync())
-                .ReturnsAsync(new SuccessData<IEnumerable<Filme>>(filmes));
+                .ReturnsAsync(filmes);
 
             var query = new GetFilmeQuery();
             var handler = new Mock<GetFilmeQueryHandler>(filmeRepositoryMock.Object);
