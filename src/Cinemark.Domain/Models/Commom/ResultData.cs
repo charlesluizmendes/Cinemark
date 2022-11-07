@@ -8,7 +8,7 @@
         }
 
         public bool Success { get; protected set; }
-        public string? Message { get; set; }
+        public string Message { get; set; }
     }
 
     public class ResultData<T> : ResultData
@@ -19,6 +19,6 @@
             Success = success;
         }
 
-        public T? Data { get; protected set; }
+        public T Data { get; protected set; }
     }
 }

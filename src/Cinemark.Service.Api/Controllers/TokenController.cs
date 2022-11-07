@@ -31,10 +31,7 @@ namespace Cinemark.Service.Api.Controllers
                 Usuario = _mapper.Map<Usuario>(request)
             });
 
-            if (token == null)
-                return BadRequest("Usuário e/ou senha inválidos");
-
-            return Ok(_mapper.Map<ResultData<TokenDto>>(token));
+            return HttpResult(_mapper.Map<ResultData<TokenDto>>(token));
         }
     }
 }

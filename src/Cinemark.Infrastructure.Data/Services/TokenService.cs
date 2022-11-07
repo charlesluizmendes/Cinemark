@@ -1,5 +1,6 @@
 ﻿using Cinemark.Domain.Interfaces.Services;
 using Cinemark.Domain.Models;
+using Cinemark.Domain.Models.Commom;
 using Cinemark.Infrastructure.Data.Services.Option;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
@@ -25,7 +26,7 @@ namespace Cinemark.Infrastructure.Data.Services
             _expires = jwtOptions.Value.Expires;
         }
 
-        public async Task<Token> CreateTokenAsync(Usuario usuario)
+        public async Task<ResultData<Token>> CreateTokenAsync(Usuario usuario)
         {
             var claims = new[]
                 {
@@ -51,11 +52,13 @@ namespace Cinemark.Infrastructure.Data.Services
             var accessKey = new JwtSecurityTokenHandler().WriteToken(jwt);
             var validTo = jwt.ValidTo.ToString();
 
-            return await Task.FromResult(new Token
+            var result = await Task.FromResult(new Token
             {                
                 AccessKey = JwtBearerDefaults.AuthenticationScheme + " " + accessKey,
                 ValidTo = validTo                
             });
+
+            return new SuccessData<Token>(result);
         }
     }
 }

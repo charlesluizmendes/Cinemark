@@ -1,5 +1,6 @@
 ﻿using Cinemark.Domain.Interfaces.EventBus;
 using Cinemark.Domain.Interfaces.Repositories;
+using Cinemark.Domain.Models.Commom;
 using Cinemark.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
@@ -20,11 +21,13 @@ namespace Cinemark.Infrastructure.Data.Repositories
             _sqlServerContext = sqlServerContext;
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<ResultData<IEnumerable<T>>> GetAllAsync()
         {
             try
             {
-                return await _mongoCollection.Find(Builders<T>.Filter.Empty).ToListAsync();
+                var result = await _mongoCollection.Find(Builders<T>.Filter.Empty).ToListAsync();
+
+                return new SuccessData<IEnumerable<T>>(result);
             }
             catch (Exception)
             {
@@ -32,11 +35,13 @@ namespace Cinemark.Infrastructure.Data.Repositories
             }
         }
 
-        public virtual async Task<T> GetByIdAsync(object id)
+        public virtual async Task<ResultData<T>> GetByIdAsync(object id)
         {
             try
             {
-                return await _mongoCollection.Find(Builders<T>.Filter.Eq("_id", id)).FirstOrDefaultAsync();
+                var result = await _mongoCollection.Find(Builders<T>.Filter.Eq("_id", id)).FirstOrDefaultAsync();
+
+                return new SuccessData<T>(result);
             }
             catch (Exception)
             {
@@ -44,14 +49,14 @@ namespace Cinemark.Infrastructure.Data.Repositories
             }
         }
 
-        public virtual async Task<T> InsertAsync(T entity)
+        public virtual async Task<ResultData<T>> InsertAsync(T entity)
         {
             try
             {
                 await _sqlServerContext.Set<T>().AddAsync(entity);
                 await _sqlServerContext.SaveChangesAsync();
 
-                return entity;
+                return new SuccessData<T>(entity);
             }
             catch (Exception)
             {
@@ -59,14 +64,14 @@ namespace Cinemark.Infrastructure.Data.Repositories
             }
         }
 
-        public virtual async Task<T> UpdateAsync(T entity)
+        public virtual async Task<ResultData<T>> UpdateAsync(T entity)
         {
             try
             {
                 _sqlServerContext.Update(entity);
                 await _sqlServerContext.SaveChangesAsync();
 
-                return entity;
+                return new SuccessData<T>(entity);
             }
             catch (Exception)
             {
@@ -74,14 +79,14 @@ namespace Cinemark.Infrastructure.Data.Repositories
             }
         }
 
-        public virtual async Task<T> DeleteAsync(T entity)
+        public virtual async Task<ResultData<T>> DeleteAsync(T entity)
         {
             try
             {
                 _sqlServerContext.Set<T>().Remove(entity);
                 await _sqlServerContext.SaveChangesAsync();
 
-                return entity;
+                return new SuccessData<T>(entity);
             }
             catch (Exception)
             {

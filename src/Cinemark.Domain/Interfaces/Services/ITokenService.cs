@@ -1,9 +1,10 @@
 ﻿using Cinemark.Domain.Models;
+using Cinemark.Domain.Models.Commom;
 
 namespace Cinemark.Domain.Interfaces.Services
 {
     public interface ITokenService
     {
-        Task<Token> CreateTokenAsync(Usuario usuario);
+        Task<ResultData<Token>> CreateTokenAsync(Usuario usuario);
     }
 }

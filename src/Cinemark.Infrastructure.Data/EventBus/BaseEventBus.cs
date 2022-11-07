@@ -1,5 +1,6 @@
 ﻿using Cinemark.Domain.Interfaces.EventBus;
 using Cinemark.Domain.Models;
+using Cinemark.Domain.Models.Commom;
 using Cinemark.Infrastructure.Data.EventBus.Option;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -74,7 +75,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
             }
         }
 
-        public async Task SubscriberAsync(string queueName, Func<T, CancellationToken, Task<bool>> entity)
+        public async Task SubscriberAsync(string queueName, Func<T, CancellationToken, Task<ResultData<bool>>> entity)
         {
             var consumer = new AsyncEventingBasicConsumer(_model);
             consumer.Received += async (ch, ea) =>
@@ -89,7 +90,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
                     {
                         var result = entity(message, default).GetAwaiter().GetResult();
 
-                        if (result)
+                        if (result.Success)
                         {
                             _model.BasicAck(ea.DeliveryTag, false);
                         }

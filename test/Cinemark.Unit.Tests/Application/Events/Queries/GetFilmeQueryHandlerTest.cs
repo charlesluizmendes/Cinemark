@@ -1,6 +1,7 @@
 ﻿using Cinemark.Application.Events.Queries;
 using Cinemark.Domain.Interfaces.Repositories;
 using Cinemark.Domain.Models;
+using Cinemark.Domain.Models.Commom;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -26,14 +27,14 @@ namespace Cinemark.Unit.Tests.Application.Events.Queries
 
             var filmeRepositoryMock = new Mock<IFilmeRepository>();
             filmeRepositoryMock.Setup(x => x.GetAllAsync())
-                .ReturnsAsync(filmes);
+                .ReturnsAsync(new SuccessData<IEnumerable<Filme>>(filmes));
 
             var query = new GetFilmeQuery();
             var handler = new Mock<GetFilmeQueryHandler>(filmeRepositoryMock.Object);
 
             var results = await handler.Object.Handle(query, new CancellationToken());
 
-            foreach (var result in results)
+            foreach (var result in results.Data)
             {
                 if (result.Id.Equals(1))
                     result.Id.Should().Be(1);
