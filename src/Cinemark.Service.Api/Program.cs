@@ -86,9 +86,8 @@ builder.Services.Configure<ApiBehaviorOptions>(o =>
     {
         return new BadRequestObjectResult(actionContext.ModelState
         .Where(modelError => modelError.Value.Errors.Count > 0)
-        .Select(modelError => new HttpResult()
+        .Select(modelError => new ResultData(false)
         {
-            StatusCode = HttpStatusCode.BadRequest,
             Message = modelError.Value.Errors.FirstOrDefault().ErrorMessage
         })
         .FirstOrDefault());

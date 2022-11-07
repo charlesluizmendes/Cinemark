@@ -22,9 +22,9 @@ namespace Cinemark.Service.Api.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(HttpResult<TokenDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(HttpResult<TokenDto>), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<HttpResult<TokenDto>>> Get([FromQuery] GetTokenDto request)
+        [ProducesResponseType(typeof(ResultData<TokenDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResultData<TokenDto>), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<ResultData<TokenDto>>> Get([FromQuery] GetTokenDto request)
         {
             var token = await _mediator.Send(new GetTokenByUsuarioQuery
             {
@@ -34,7 +34,7 @@ namespace Cinemark.Service.Api.Controllers
             if (token == null)
                 return BadRequest("Usuário e/ou senha inválidos");
 
-            return Ok(_mapper.Map<TokenDto>(token));
+            return Ok(_mapper.Map<ResultData<TokenDto>>(token));
         }
     }
 }
