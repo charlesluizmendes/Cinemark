@@ -1,9 +1,7 @@
 ﻿using Cinemark.Domain.Interfaces.EventBus;
 using Cinemark.Domain.Models;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Moq;
-using System.Threading;
 using Xunit;
 
 namespace Cinemark.Unit.Tests.Infrastructure.Data.EventBus

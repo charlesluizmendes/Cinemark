@@ -1,10 +1,11 @@
 ﻿using Cinemark.Domain.Interfaces.Repositories;
 using Cinemark.Domain.Models;
+using Cinemark.Domain.Models.Commom;
 using MediatR;
 
 namespace Cinemark.Application.Events.Queries
 {
-    public class GetFilmeQueryHandler : IRequestHandler<GetFilmeQuery, IEnumerable<Filme>>
+    public class GetFilmeQueryHandler : IRequestHandler<GetFilmeQuery, ResultData<IEnumerable<Filme>>>
     {
         private readonly IFilmeRepository _filmeRepository;
 
@@ -13,9 +14,14 @@ namespace Cinemark.Application.Events.Queries
             _filmeRepository = filmeRepository;
         }
 
-        public async Task<IEnumerable<Filme>> Handle(GetFilmeQuery request, CancellationToken cancellationToken)
+        public async Task<ResultData<IEnumerable<Filme>>> Handle(GetFilmeQuery request, CancellationToken cancellationToken)
         {
-            return await _filmeRepository.GetAllAsync();
+            var filme = await _filmeRepository.GetAllAsync();
+
+            if (filme == null)
+                return new ErrorData<IEnumerable<Filme>>("Nenhum Filme foi encontrado");
+
+            return new SuccessData<IEnumerable<Filme>>(filme);
         }
     }
 }

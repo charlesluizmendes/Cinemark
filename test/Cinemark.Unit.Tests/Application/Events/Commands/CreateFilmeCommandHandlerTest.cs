@@ -20,26 +20,26 @@ namespace Cinemark.Unit.Tests.Application.Events.Commands
                 Categoria = "Drama",
                 FaixaEtaria = 12,
                 DataLancamento = new DateTime(1971, 10, 3)
-            };
-
-            var createFilmeCommand = new CreateFilmeCommand()
-            {
-                Filme = filme
-            };
+            };            
 
             var filmeRepositoryMock = new Mock<IFilmeRepository>();
             filmeRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<Filme>()))
                 .ReturnsAsync(filme);
 
-            var createFilmeCommandHandler = new Mock<CreateFilmeCommandHandler>(filmeRepositoryMock.Object);
-           
-            var result = await createFilmeCommandHandler.Object.Handle(createFilmeCommand, new CancellationToken());
+            var filmeEventBusMock = new Mock<IFilmeEventBus>();
+            filmeEventBusMock.Setup(x => x.PublisherAsync("Filme_Insert", It.IsAny<Filme>()))
+                .Returns(Task.CompletedTask);
 
-            result.Id.Should().Be(1);
-            result.Nome.Should().Be("E o Vento Levou");
-            result.Categoria.Should().Be("Drama");
-            result.FaixaEtaria.Should().Be(12);
-            result.DataLancamento.Should().Be(new DateTime(1971, 10, 3));
+            var command = new CreateFilmeCommand() { Filme = filme };
+            var handler = new Mock<CreateFilmeCommandHandler>(filmeRepositoryMock.Object, filmeEventBusMock.Object);
+           
+            var result = await handler.Object.Handle(command, new CancellationToken());
+
+            result.Data.Id.Should().Be(1);
+            result.Data.Nome.Should().Be("E o Vento Levou");
+            result.Data.Categoria.Should().Be("Drama");
+            result.Data.FaixaEtaria.Should().Be(12);
+            result.Data.DataLancamento.Should().Be(new DateTime(1971, 10, 3));
         }
     }
 }

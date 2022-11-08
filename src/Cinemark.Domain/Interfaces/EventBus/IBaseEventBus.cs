@@ -1,4 +1,6 @@
-﻿namespace Cinemark.Domain.Interfaces.EventBus
+﻿using Cinemark.Domain.Models.Commom;
+
+namespace Cinemark.Domain.Interfaces.EventBus
 {
     public interface IBaseEventBus<T> where T : class
     {

@@ -1,9 +1,10 @@
 ﻿using Cinemark.Domain.Models;
+using Cinemark.Domain.Models.Commom;
 using MediatR;
 
 namespace Cinemark.Application.Events.Commands
 {
-    public class CreateFilmeCommand : IRequest<Filme>
+    public class CreateFilmeCommand : IRequest<ResultData<Filme>>
     {
         public Filme Filme { get; set; } = null!;
     }

@@ -1,4 +1,4 @@
-﻿using Cinemark.Domain.Interfaces.EventBus;
+using Cinemark.Domain.Interfaces.EventBus;
 using Cinemark.Infrastructure.Data.EventBus.Option;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
