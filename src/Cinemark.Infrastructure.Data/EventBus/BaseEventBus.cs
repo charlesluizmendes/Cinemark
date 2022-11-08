@@ -11,7 +11,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
     public abstract class BaseEventBus<T> : IBaseEventBus<T> where T : class
     {
         private readonly IOptions<RabbitMqConfiguration> _rabbitMqConfiguration;
-
+        private const int _retry = 60000;
         private IConnection _connection;
         private IModel _model;
 
@@ -31,6 +31,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
             var factory = new ConnectionFactory
             {
                 HostName = _rabbitMqConfiguration.Value.HostName,
+                Port = _rabbitMqConfiguration.Value.Port,
                 UserName = _rabbitMqConfiguration.Value.UserName,
                 Password = _rabbitMqConfiguration.Value.Password,
                 DispatchConsumersAsync = true
@@ -45,25 +46,25 @@ namespace Cinemark.Infrastructure.Data.EventBus
 
             var argsQueue = new Dictionary<string, object>()
             {
-                { "x-dead-letter-exchange", queueName + "_DeadLetterExchange" },
-                { "x-dead-letter-routing-key", queueName + "_DeadLetterQueue" }
+                { "x-dead-letter-exchange", queueName + "_DeadLetter_Exchange" },
+                { "x-dead-letter-routing-key", queueName + "_DeadLetter_Queue" }
             };
 
-            _model.ExchangeDeclare(exchange: queueName, type: ExchangeType.Fanout);
-            _model.QueueDeclare(queue: queueName, durable: true, exclusive: false, autoDelete: false, arguments: argsQueue);
-            _model.QueueBind(queue: queueName, exchange: queueName, routingKey: string.Empty, arguments: null);
+            _model.ExchangeDeclare(exchange: queueName + "_Exchange", type: ExchangeType.Fanout);
+            _model.QueueDeclare(queue: queueName + "_Queue", durable: true, exclusive: false, autoDelete: false, arguments: argsQueue);
+            _model.QueueBind(queue: queueName + "_Queue", exchange: queueName + "_Exchange", routingKey: string.Empty, arguments: null);
 
             _model.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
 
             var argsDeadLetter = new Dictionary<string, object>()
             {
-               { "x-dead-letter-exchange", queueName },
-               { "x-message-ttl", 60000 }
+               { "x-dead-letter-exchange", queueName + "_Exchange" },
+               { "x-message-ttl", _retry }
             };
 
-            _model.ExchangeDeclare(exchange: queueName + "_DeadLetterExchange", type: ExchangeType.Fanout);
-            _model.QueueDeclare(queue: queueName + "_DeadLetterQueue", durable: true, exclusive: false, autoDelete: false, arguments: argsDeadLetter);
-            _model.QueueBind(queue: queueName + "_DeadLetterQueue", exchange: queueName + "_DeadLetterExchange", routingKey: string.Empty, arguments: null);
+            _model.ExchangeDeclare(exchange: queueName + "_DeadLetter_Exchange", type: ExchangeType.Fanout);
+            _model.QueueDeclare(queue: queueName + "_DeadLetter_Queue", durable: true, exclusive: false, autoDelete: false, arguments: argsDeadLetter);
+            _model.QueueBind(queue: queueName + "_DeadLetter_Queue", exchange: queueName + "_DeadLetter_Exchange", routingKey: string.Empty, arguments: null);
         }     
 
         public async Task PublisherAsync(string queueName, T entity)
@@ -73,7 +74,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
                 var json = JsonConvert.SerializeObject(entity);
                 var body = Encoding.UTF8.GetBytes(json);
 
-                _model.BasicPublish(exchange: queueName, routingKey: queueName, basicProperties: null, body: body);
+                _model.BasicPublish(exchange: queueName + "_Exchange", routingKey: queueName + "_Queue", basicProperties: null, body: body);
 
                 await Task.Yield();
             }
@@ -120,7 +121,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
                 }
             };
 
-            _model.BasicConsume(queueName, false, consumer);
+            _model.BasicConsume(queueName + "_Queue", false, consumer);
 
             await Task.Yield();
         }

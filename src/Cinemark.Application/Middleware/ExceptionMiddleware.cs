@@ -54,8 +54,6 @@ namespace Cinemark.Application.Middleware
                 Message = ex.Message          
             };
 
-            context.Response.StatusCode = context.Response.StatusCode;
-
             await context.Response.WriteAsJsonAsync(result);
         }
     }
