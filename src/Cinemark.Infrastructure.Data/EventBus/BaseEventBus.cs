@@ -45,7 +45,8 @@ namespace Cinemark.Infrastructure.Data.EventBus
 
             var argsQueue = new Dictionary<string, object>()
             {
-                { "x-dead-letter-exchange", queueName + "_DeadLetterExchange" }
+                { "x-dead-letter-exchange", queueName + "_DeadLetterExchange" },
+                { "x-dead-letter-routing-key", queueName + "_DeadLetterQueue" }
             };
 
             _model.ExchangeDeclare(exchange: queueName, type: ExchangeType.Fanout);
