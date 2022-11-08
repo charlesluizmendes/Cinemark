@@ -34,9 +34,8 @@ namespace Cinemark.Application.Middleware
         {
             if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
             {
-                var result = new HttpResult()
+                var result = new ResultData(false)
                 {
-                    StatusCode = HttpStatusCode.Unauthorized,
                     Message = "Unauthorized"                    
                 };
 
@@ -50,13 +49,12 @@ namespace Cinemark.Application.Middleware
         {
             _logger.LogError(ex, ex.Message);
 
-            var result = new HttpResult()
+            var result = new ResultData(false)
             {
-                StatusCode = HttpStatusCode.InternalServerError,
-                Message = "InternalServerError"                
+                Message = ex.Message          
             };
 
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            context.Response.StatusCode = context.Response.StatusCode;
 
             await context.Response.WriteAsJsonAsync(result);
         }

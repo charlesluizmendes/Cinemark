@@ -6,6 +6,7 @@ using Cinemark.Domain.Interfaces.EventBus;
 using Cinemark.Domain.Interfaces.Repositories;
 using Cinemark.Domain.Interfaces.Services;
 using Cinemark.Domain.Models;
+using Cinemark.Domain.Models.Commom;
 using Cinemark.Infrastructure.Data.Context;
 using Cinemark.Infrastructure.Data.EventBus;
 using Cinemark.Infrastructure.Data.Repositories;
@@ -24,12 +25,12 @@ namespace Cinemark.Infrastructure.IoC
 
             // Application
 
-            container.AddTransient<IRequestHandler<GetFilmeQuery, IEnumerable<Filme>>, GetFilmeQueryHandler>();
-            container.AddTransient<IRequestHandler<GetFilmeByIdQuery, Filme>, GetFilmeByIdQueryHandler>();
-            container.AddTransient<IRequestHandler<GetTokenByUsuarioQuery, Token?>, GetTokenByUsuarioQueryHandler>();
-            container.AddTransient<IRequestHandler<CreateFilmeCommand, Filme>, CreateFilmeCommandHandler>();
-            container.AddTransient<IRequestHandler<DeleteFilmeCommand, Filme>, DeleteFilmeCommandHandler>();
-            container.AddTransient<IRequestHandler<UpdateFilmeCommand, Filme>, UpdateFilmeCommandHandler>();
+            container.AddTransient<IRequestHandler<GetFilmeQuery, ResultData<IEnumerable<Filme>>>, GetFilmeQueryHandler>();
+            container.AddTransient<IRequestHandler<GetFilmeByIdQuery, ResultData<Filme>>, GetFilmeByIdQueryHandler>();
+            container.AddTransient<IRequestHandler<GetTokenByUsuarioQuery, ResultData<Token>>, GetTokenByUsuarioQueryHandler>();
+            container.AddTransient<IRequestHandler<CreateFilmeCommand, ResultData<Filme>>, CreateFilmeCommandHandler>();
+            container.AddTransient<IRequestHandler<DeleteFilmeCommand, ResultData<Filme>>, DeleteFilmeCommandHandler>();
+            container.AddTransient<IRequestHandler<UpdateFilmeCommand, ResultData<Filme>>, UpdateFilmeCommandHandler>();
 
             container.AddTransient<IValidator<CreateFilmeDto>, CreateFilmeDtoValidator>();
             container.AddTransient<IValidator<UpdateFilmeDto>, UpdateFilmeDtoValidator>();

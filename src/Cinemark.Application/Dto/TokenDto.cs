@@ -2,7 +2,7 @@
 {
     public class TokenDto
     {
-        public string? AccessKey { get; set; }
-        public string? ValidTo { get; set; }
+        public string AccessKey { get; set; }
+        public string ValidTo { get; set; }
     }
 }

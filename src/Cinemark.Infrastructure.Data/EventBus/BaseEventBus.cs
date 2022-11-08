@@ -1,5 +1,4 @@
-﻿using Cinemark.Domain.Interfaces.EventBus;
-using Cinemark.Domain.Models;
+using Cinemark.Domain.Interfaces.EventBus;
 using Cinemark.Infrastructure.Data.EventBus.Option;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -13,8 +12,8 @@ namespace Cinemark.Infrastructure.Data.EventBus
     {
         private readonly IOptions<RabbitMqConfiguration> _rabbitMqConfiguration;
 
-        private IConnection? _connection;
-        private IModel? _model;
+        private IConnection _connection;
+        private IModel _model;
 
         public BaseEventBus(IOptions<RabbitMqConfiguration> rabbitMqConfiguration)
         {
@@ -44,17 +43,27 @@ namespace Cinemark.Infrastructure.Data.EventBus
         {
             _model = _connection.CreateModel();
 
-            _model.ExchangeDeclare(queueName + "_DeadLetter", ExchangeType.Fanout);
-            _model.QueueDeclare(queueName + "_DeadLetter", true, false, false, null);
-            _model.QueueBind(queueName + "_DeadLetter", queueName + "_DeadLetter", "");
-
-            var arguments = new Dictionary<string, object>()
+            var argsQueue = new Dictionary<string, object>()
             {
-                { "x-dead-letter-exchange", queueName + "_DeadLetter" }
+                { "x-dead-letter-exchange", queueName + "_DeadLetterExchange" },
+                { "x-dead-letter-routing-key", queueName + "_DeadLetterQueue" }
             };
 
-            _model.QueueDeclare(queue: queueName, durable: true, exclusive: false, autoDelete: false, arguments: arguments);
+            _model.ExchangeDeclare(exchange: queueName, type: ExchangeType.Fanout);
+            _model.QueueDeclare(queue: queueName, durable: true, exclusive: false, autoDelete: false, arguments: argsQueue);
+            _model.QueueBind(queue: queueName, exchange: queueName, routingKey: string.Empty, arguments: null);
+
             _model.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+
+            var argsDeadLetter = new Dictionary<string, object>()
+            {
+               { "x-dead-letter-exchange", queueName },
+               { "x-message-ttl", 60000 }
+            };
+
+            _model.ExchangeDeclare(exchange: queueName + "_DeadLetterExchange", type: ExchangeType.Fanout);
+            _model.QueueDeclare(queue: queueName + "_DeadLetterQueue", durable: true, exclusive: false, autoDelete: false, arguments: argsDeadLetter);
+            _model.QueueBind(queue: queueName + "_DeadLetterQueue", exchange: queueName + "_DeadLetterExchange", routingKey: string.Empty, arguments: null);
         }     
 
         public async Task PublisherAsync(string queueName, T entity)
@@ -64,7 +73,7 @@ namespace Cinemark.Infrastructure.Data.EventBus
                 var json = JsonConvert.SerializeObject(entity);
                 var body = Encoding.UTF8.GetBytes(json);
 
-                _model.BasicPublish(exchange: "", routingKey: queueName, basicProperties: null, body: body);
+                _model.BasicPublish(exchange: queueName, routingKey: queueName, basicProperties: null, body: body);
 
                 await Task.Yield();
             }

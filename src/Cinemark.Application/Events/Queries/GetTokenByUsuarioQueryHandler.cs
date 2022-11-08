@@ -1,11 +1,12 @@
 ﻿using Cinemark.Domain.Interfaces.Repositories;
 using Cinemark.Domain.Interfaces.Services;
 using Cinemark.Domain.Models;
+using Cinemark.Domain.Models.Commom;
 using MediatR;
 
 namespace Cinemark.Application.Events.Queries
 {
-    public class GetTokenByUsuarioQueryHandler : IRequestHandler<GetTokenByUsuarioQuery, Token?>
+    public class GetTokenByUsuarioQueryHandler : IRequestHandler<GetTokenByUsuarioQuery, ResultData<Token>>
     {
         private readonly ITokenService _tokenService;
         private readonly IUsuarioRepository _usuarioRepository;
@@ -17,14 +18,19 @@ namespace Cinemark.Application.Events.Queries
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<Token?> Handle(GetTokenByUsuarioQuery request, CancellationToken cancellationToken)
+        public async Task<ResultData<Token>> Handle(GetTokenByUsuarioQuery request, CancellationToken cancellationToken)
         {
             var usuario = await _usuarioRepository.GetUsuarioByEmailAndSenhaAsync(request.Usuario);
 
             if (usuario == null)
-                return null;
+                return new ErrorData<Token>("Usuário e/ou senha inválidos");
 
-            return await _tokenService.CreateTokenAsync(usuario);
+            var token = await _tokenService.CreateTokenAsync(usuario);
+
+            if (token == null)
+                return new ErrorData<Token>("Não foi possível criar o Token");
+
+            return new SuccessData<Token>(token);
         }
     }
 }
