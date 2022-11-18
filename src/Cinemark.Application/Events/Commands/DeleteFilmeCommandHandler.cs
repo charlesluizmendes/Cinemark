@@ -1,4 +1,5 @@
-﻿using Cinemark.Domain.Interfaces.EventBus;
+﻿using Cinemark.Domain.Constants;
+using Cinemark.Domain.Interfaces.EventBus;
 using Cinemark.Domain.Interfaces.Repositories;
 using Cinemark.Domain.Models;
 using Cinemark.Domain.Models.Commom;
@@ -25,7 +26,7 @@ namespace Cinemark.Application.Events.Commands
             if (filme == null)
                 return new ErrorData<Filme>("O Filme não foi encontrado");
 
-            await _filmeEventBus.PublisherAsync(typeof(Filme).Name + "_Delete", filme);
+            await _filmeEventBus.PublisherAsync(typeof(Filme).Name + QueueConstants.Delete, filme);
 
             return new SuccessData<Filme>(filme);
         }

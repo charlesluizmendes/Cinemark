@@ -1,4 +1,5 @@
-﻿using Cinemark.Domain.Interfaces.EventBus;
+﻿using Cinemark.Domain.Constants;
+using Cinemark.Domain.Interfaces.EventBus;
 using Cinemark.Domain.Interfaces.Repositories;
 using Cinemark.Domain.Models;
 using Cinemark.Domain.Models.Commom;
@@ -25,7 +26,7 @@ namespace Cinemark.Application.Events.Commands
             if (filme == null)
                 return new ErrorData<Filme>("O Filme já foi Cadastrado");
                 
-            await _filmeEventBus.PublisherAsync(typeof(Filme).Name + "_Insert", filme);
+            await _filmeEventBus.PublisherAsync(typeof(Filme).Name + QueueConstants.Insert, filme);
 
             return new SuccessData<Filme>(filme);
         }

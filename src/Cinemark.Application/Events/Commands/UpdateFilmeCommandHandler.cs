@@ -1,4 +1,5 @@
-﻿using Cinemark.Domain.Interfaces.EventBus;
+﻿using Cinemark.Domain.Constants;
+using Cinemark.Domain.Interfaces.EventBus;
 using Cinemark.Domain.Interfaces.Repositories;
 using Cinemark.Domain.Models;
 using Cinemark.Domain.Models.Commom;
@@ -25,7 +26,7 @@ namespace Cinemark.Application.Events.Commands
             if (filme == null)
                 return new ErrorData<Filme>("Não foi possível alterar o Filme");
 
-            await _filmeEventBus.PublisherAsync(typeof(Filme).Name + "_Update", filme);
+            await _filmeEventBus.PublisherAsync(typeof(Filme).Name + QueueConstants.Update, filme);
 
             return new SuccessData<Filme>(filme);
         }
