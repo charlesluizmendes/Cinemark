@@ -1,4 +1,5 @@
 ﻿using Cinemark.Application.Events.Commands;
+using Cinemark.Domain.Constants;
 using Cinemark.Domain.Interfaces.EventBus;
 using Cinemark.Domain.Interfaces.Repositories;
 using Cinemark.Domain.Models;
@@ -27,7 +28,7 @@ namespace Cinemark.Unit.Tests.Application.Events.Commands
                 .ReturnsAsync(filme);
 
             var filmeEventBusMock = new Mock<IFilmeEventBus>();
-            filmeEventBusMock.Setup(x => x.PublisherAsync("Filme_Insert", It.IsAny<Filme>()))
+            filmeEventBusMock.Setup(x => x.PublisherAsync(typeof(Filme).Name + QueueConstants.Insert, It.IsAny<Filme>()))
                 .Returns(Task.CompletedTask);
 
             var command = new CreateFilmeCommand() { Filme = filme };
