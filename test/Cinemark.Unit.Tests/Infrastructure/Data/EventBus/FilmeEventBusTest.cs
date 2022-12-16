@@ -1,4 +1,5 @@
-﻿using Cinemark.Domain.Interfaces.EventBus;
+﻿using Cinemark.Domain.Constants;
+using Cinemark.Domain.Interfaces.EventBus;
 using Cinemark.Domain.Models;
 using FluentAssertions;
 using Moq;
@@ -21,10 +22,10 @@ namespace Cinemark.Unit.Tests.Infrastructure.Data.EventBus
             };
 
             var filmeCreateEventBus = new Mock<IFilmeEventBus>();
-            filmeCreateEventBus.Setup(x => x.PublisherAsync("Filme_Insert", It.IsAny<Filme>()))
+            filmeCreateEventBus.Setup(x => x.PublisherAsync(typeof(Filme).Name + QueueConstants.Insert, It.IsAny<Filme>()))
                 .Returns(Task.CompletedTask);            
 
-            var result = filmeCreateEventBus.Object.PublisherAsync("Filme_Insert", filme);
+            var result = filmeCreateEventBus.Object.PublisherAsync(typeof(Filme).Name + QueueConstants.Insert, filme);
 
             result.IsCompletedSuccessfully.Should().BeTrue();
         }
@@ -34,7 +35,7 @@ namespace Cinemark.Unit.Tests.Infrastructure.Data.EventBus
         {
             var filmeCreateEventBus = new Mock<IFilmeEventBus>();            
 
-            var result = filmeCreateEventBus.Object.SubscriberAsync("Filme_Insert", (message, cancellationToken) => 
+            var result = filmeCreateEventBus.Object.SubscriberAsync(typeof(Filme).Name + QueueConstants.Insert, (message, cancellationToken) => 
             {
                 return Task.FromResult(true);
             });
