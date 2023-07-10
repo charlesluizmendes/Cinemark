@@ -50,12 +50,14 @@ USE [cinemark]
 GO
 
 INSERT INTO [dbo].[Usuario]
-           ([Nome]
+           ([Id]
+           ,[Nome]
            ,[Email]
            ,[Senha]
            ,[DataCriacao])
      VALUES
-           ('Teste'
+           ('330fc7e6-4bff-467b-b6d3-4d11ff53849f'
+           'Teste'
            ,'teste@cinemark.com'
            ,'12345'
            ,GETDATE())
@@ -75,7 +77,7 @@ use cinemark
 ```
 db.Usuario.insert(
   {
-  	"_id": 1,
+  	"_id": '330fc7e6-4bff-467b-b6d3-4d11ff53849f',
   	"Nome": "Teste",
   	"Email": "teste@cinemark.com",
   	"Senha": "12345",
