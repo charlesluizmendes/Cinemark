@@ -1,5 +1,5 @@
-﻿using Cinemark.Domain.Commom;
-using Cinemark.Domain.Exceptions;
+﻿using Cinemark.Domain.Core.Commom;
+using Cinemark.Domain.Core.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Net;

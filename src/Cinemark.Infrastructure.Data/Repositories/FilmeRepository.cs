@@ -1,5 +1,5 @@
 ﻿using Cinemark.Domain.AggregatesModels.FilmeAggregate;
-using Cinemark.Domain.Commom;
+using Cinemark.Domain.Core.Commom;
 using Cinemark.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;

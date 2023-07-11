@@ -4,7 +4,7 @@ using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace Cinemark.Unit.Tests.Application.Events.Commands
+namespace Cinemark.Unit.Tests.Application.Commands
 {
     public class CreateFilmeCommandHandlerTest
     {
@@ -18,14 +18,14 @@ namespace Cinemark.Unit.Tests.Application.Events.Commands
             var filmeRepository = new Mock<IFilmeRepository>();
             filmeRepository.Setup(x => x.InsertAsync(It.IsAny<Filme>()));
             filmeRepository.Setup(x => x.UnitOfWork.SaveEntitiesAsync(It.IsAny<CancellationToken>()))
-                .ReturnsAsync(cancellationToken);            
+                .ReturnsAsync(cancellationToken);
 
             var command = new Mock<CreateFilmeCommand>(filme.Object.Nome, filme.Object.Categoria, filme.Object.FaixaEtaria, filme.Object.DataLancamento);
             var handler = new Mock<CreateFilmeCommandHandler>(filmeRepository.Object);
-           
+
             var result = await handler.Object.Handle(command.Object, new CancellationToken());
 
-            result.Should().Be(true);            
+            result.Should().Be(true);
         }
     }
 }

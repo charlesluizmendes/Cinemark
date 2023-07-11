@@ -1,6 +1,6 @@
 using Cinemark.Application.AutoMapper;
 using Cinemark.Application.Middleware;
-using Cinemark.Domain.Commom;
+using Cinemark.Domain.Core.Commom;
 using Cinemark.Infrastructure.Data.Context;
 using Cinemark.Infrastructure.Data.Context.Option;
 using Cinemark.Infrastructure.EventBus.Option;

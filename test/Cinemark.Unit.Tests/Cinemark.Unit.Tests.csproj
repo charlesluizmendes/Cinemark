@@ -28,7 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Application\Events\" />
     <Folder Include="Domain\Events\" />
+    <Folder Include="Infrastructure\HostedServices\" />
+    <Folder Include="Infrastructure\Identity\" />
   </ItemGroup>
 
 </Project>
