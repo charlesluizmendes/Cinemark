@@ -96,12 +96,12 @@ Password: guest
 
 O projeto possui Documentação pelo Swagger, portanto possui os seguintes endpoints:
 
-### POST Token
+### POST Usuario
 
 Para criar um Token JWT e utilizar nas requições dos endpoints de Filmes, utilze o endpoint abaixo:
 ```
 curl -X 'POST' \
-  'https://localhost:7189/api/Token' \
+  'https://localhost:7189/api/Usuario' \
   -H 'accept: text/plain' \
   -H 'Content-Type: application/json' \
   -d '{
