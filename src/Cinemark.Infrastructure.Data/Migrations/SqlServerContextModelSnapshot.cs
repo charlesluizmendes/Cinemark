@@ -22,13 +22,11 @@ namespace Cinemark.Infrastructure.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Cinemark.Domain.Models.Filme", b =>
+            modelBuilder.Entity("Cinemark.Domain.AggregatesModels.FilmeAggregate.Filme", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Categoria")
                         .IsRequired()
@@ -49,13 +47,11 @@ namespace Cinemark.Infrastructure.Data.Migrations
                     b.ToTable("Filme", (string)null);
                 });
 
-            modelBuilder.Entity("Cinemark.Domain.Models.Usuario", b =>
+            modelBuilder.Entity("Cinemark.Domain.AggregatesModels.UsuarioAggregate.Usuario", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DataCriacao")
                         .ValueGeneratedOnAdd()

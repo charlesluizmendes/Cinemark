@@ -7,22 +7,23 @@ namespace Cinemark.Infrastructure.Data.Context
 {
     public class MongoContext
     {
-        private IMongoDatabase _databaseName { get; set; }
         private MongoClient _mongoClient { get; set; }
+        private IMongoDatabase _databaseName { get; set; }
 
         public MongoContext(IOptions<MongoConfiguration> configuration)
         {
             _mongoClient = new MongoClient(configuration.Value.Connection);
-            _databaseName = _mongoClient.GetDatabase(configuration.Value.DatabaseName);            
+            _databaseName = _mongoClient.GetDatabase(configuration.Value.DatabaseName);
         }
 
-        public IMongoCollection<T> GetCollection<T>(string name)
+        public IMongoCollection<T> GetCollection<T>()
         {
-            return _databaseName.GetCollection<T>(name);
+            return _databaseName.GetCollection<T>(typeof(T).Name);
         }
 
         public static void OnModelCreating()
         {
+            EntityMap.Configure();
             FilmeMap.Configure();
             UsuarioMap.Configure();
         }

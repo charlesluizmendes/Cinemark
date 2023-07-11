@@ -1,21 +1,19 @@
-﻿using Cinemark.Domain.Models.Commom;
+﻿using Cinemark.Domain.Commom;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using System.Net;
 
 namespace Cinemark.Service.Api.Controllers
 {
     [ApiController]
     public abstract class BaseController : ControllerBase
     {
-        public static ActionResult HttpResult<T>(ResultData<T> result) where T : class
+        protected ActionResult CustomResponse()
         {
-            if (result.Success)
-            {
-                return new OkObjectResult(result);
-            }
+            return Ok(new ResultData(true, "OK"));
+        }
 
-            return new BadRequestObjectResult(result);
+        protected ActionResult CustomResponse(object result)
+        {
+            return Ok(new ResultData<object>(true, "OK", result));
         }
     }
 }

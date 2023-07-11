@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cinemark.Domain\Cinemark.Domain.csproj" />
+    <ProjectReference Include="..\Cinemark.Infrastructure.Data\Cinemark.Infrastructure.Data.csproj" />
   </ItemGroup>
 
 </Project>

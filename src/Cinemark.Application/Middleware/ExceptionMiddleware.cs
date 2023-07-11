@@ -1,4 +1,5 @@
-﻿using Cinemark.Domain.Models.Commom;
+﻿using Cinemark.Domain.Commom;
+using Cinemark.Domain.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Net;
@@ -34,14 +35,8 @@ namespace Cinemark.Application.Middleware
         {
             if (context.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
             {
-                var result = new ResultData(false)
-                {
-                    Message = "Unauthorized"                    
-                };
-
                 context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-
-                await context.Response.WriteAsJsonAsync(result);
+                await context.Response.WriteAsJsonAsync(new ResultData(false, "Unauthorized"));
             }
         }
 
@@ -49,12 +44,20 @@ namespace Cinemark.Application.Middleware
         {
             _logger.LogError(ex, ex.Message);
 
-            var result = new ResultData(false)
+            switch (ex)
             {
-                Message = ex.Message          
-            };
+                case DomainException:
+                    context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    break;
+                case KeyNotFoundException:
+                    context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                    break;
+                default:
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    break;
+            }          
 
-            await context.Response.WriteAsJsonAsync(result);
+            await context.Response.WriteAsJsonAsync(new ResultData(false, ex.Message));
         }
     }
 }

@@ -27,4 +27,8 @@
     <ProjectReference Include="..\..\src\Cinemark.Infrastructure.IoC\Cinemark.Infrastructure.IoC.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\Events\" />
+  </ItemGroup>
+
 </Project>
