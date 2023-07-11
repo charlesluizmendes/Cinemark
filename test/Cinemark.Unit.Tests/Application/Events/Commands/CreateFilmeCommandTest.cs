@@ -1,6 +1,8 @@
-﻿using Cinemark.Application.Events.Commands;
-using Cinemark.Domain.Models;
+﻿using Cinemark.Application.Commands;
+using Cinemark.Domain.AggregatesModels.FilmeAggregate;
+using Cinemark.Domain.Commom;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace Cinemark.Unit.Tests.Application.Events.Commands
@@ -10,25 +12,15 @@ namespace Cinemark.Unit.Tests.Application.Events.Commands
         [Fact]
         public void CreateFilmeCommand()
         {
-            var filme = new Filme()
-            {
-                Id = 1,
-                Nome = "E o Vento Levou",
-                Categoria = "Drama",
-                FaixaEtaria = 12,
-                DataLancamento = new DateTime(1971, 10, 3)
-            };
+            var filme = new Mock<Filme>(new Guid("30eb581a-4373-4a49-93a3-6fba8aae2044"), "E o Vento Levou", "Drama", 12, new DateTime(1971, 10, 3));
+            filme.Setup(x => x.Id).Returns(new Guid("30eb581a-4373-4a49-93a3-6fba8aae2044"));
 
-            var createFilmeCommand = new CreateFilmeCommand()
-            {
-                Filme = filme
-            };
+            var createFilmeCommand = new Mock<CreateFilmeCommand>(filme.Object.Nome, filme.Object.Categoria, filme.Object.FaixaEtaria, filme.Object.DataLancamento);
 
-            createFilmeCommand.Filme.Id.Should().Be(1);
-            createFilmeCommand.Filme.Nome.Should().Be("E o Vento Levou");
-            createFilmeCommand.Filme.Categoria.Should().Be("Drama");
-            createFilmeCommand.Filme.FaixaEtaria.Should().Be(12);
-            createFilmeCommand.Filme.DataLancamento.Should().Be(new DateTime(1971, 10, 3));
+            createFilmeCommand.Object.Nome.Should().Be("E o Vento Levou");
+            createFilmeCommand.Object.Categoria.Should().Be("Drama");
+            createFilmeCommand.Object.FaixaEtaria.Should().Be(12);
+            createFilmeCommand.Object.DataLancamento.Should().Be(new DateTime(1971, 10, 3));
         }
     }
 }

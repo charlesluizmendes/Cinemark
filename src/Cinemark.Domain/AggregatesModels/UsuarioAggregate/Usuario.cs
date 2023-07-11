@@ -16,7 +16,7 @@ namespace Cinemark.Domain.AggregatesModels.UsuarioAggregate
             Nome = !string.IsNullOrWhiteSpace(nome) ? nome : throw new DomainException(nameof(nome));
             Email = !string.IsNullOrWhiteSpace(email) ? email : throw new DomainException(nameof(email));
             Senha = !string.IsNullOrWhiteSpace(senha) ? senha : throw new DomainException(nameof(senha));
-            DataCriacao = dataCriacao >= DateTime.Now ? dataCriacao : throw new DomainException(nameof(dataCriacao));
+            DataCriacao = dataCriacao;
         }
     }
 }

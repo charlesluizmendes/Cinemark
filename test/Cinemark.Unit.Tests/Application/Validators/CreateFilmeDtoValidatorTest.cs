@@ -1,6 +1,7 @@
 ﻿using Cinemark.Application.Dto;
 using Cinemark.Application.Validators;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace Cinemark.Unit.Tests.Application.Validators
@@ -10,8 +11,8 @@ namespace Cinemark.Unit.Tests.Application.Validators
         [Fact]
         public void CreateFilmeDtoValidator()
         {
-            var request = new CreateFilmeDto()
-            {               
+            var request = new CreateFilmeDto
+            {
                 Nome = "E o Vento Levou",
                 Categoria = "Drama",
                 FaixaEtaria = 12,

@@ -1,7 +1,5 @@
 ﻿using Cinemark.Application.Queries;
 using Cinemark.Domain.AggregatesModels.FilmeAggregate;
-using Cinemark.Domain.Models;
-using Cinemark.Domain.Models.Commom;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -15,29 +13,23 @@ namespace Cinemark.Unit.Tests.Application.Events.Queries
         {
             var filmes = new List<Filme>()
             {
-                new Filme()
-                {
-                    Id = 1,
-                    Nome = "E o Vento Levou",
-                    Categoria = "Drama",
-                    FaixaEtaria = 12,
-                    DataLancamento = new DateTime(1971, 10, 3)
-                }
+                new Mock<Filme>(new Guid("30eb581a-4373-4a49-93a3-6fba8aae2044"), "E o Vento Levou", "Drama", 12, new DateTime(1971, 10, 3)).Object
             };
 
-            var filmeRepositoryMock = new Mock<IFilmeRepository>();
-            filmeRepositoryMock.Setup(x => x.GetAllAsync())
+            var filmeRepository = new Mock<IFilmeRepository>();
+            filmeRepository.Setup(x => x.GetAllAsync())
                 .ReturnsAsync(filmes);
 
-            var query = new GetFilmeQuery();
-            var handler = new Mock<GetFilmeQueryHandler>(filmeRepositoryMock.Object);
+            var query = new Mock<GetFilmeQuery>();
+            var handler = new Mock<GetFilmeQueryHandler>(filmeRepository.Object);
 
-            var results = await handler.Object.Handle(query, new CancellationToken());
+            var results = await handler.Object.Handle(query.Object, new CancellationToken());
 
-            foreach (var result in results.Data)
+            foreach (var result in results)
             {
-                if (result.Id.Equals(1))
-                    result.Id.Should().Be(1);
+                if (result.Id.Equals(new Guid("30eb581a-4373-4a49-93a3-6fba8aae2044")))
+
+                    result.Id.Should().Be(new Guid("30eb581a-4373-4a49-93a3-6fba8aae2044"));
                     result.Nome.Should().Be("E o Vento Levou");
                     result.Categoria.Should().Be("Drama");
                     result.FaixaEtaria.Should().Be(12);

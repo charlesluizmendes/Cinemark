@@ -1,5 +1,6 @@
-﻿using Cinemark.Application.Events.Queries;
+﻿using Cinemark.Application.Queries;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace Cinemark.Unit.Tests.Application.Events.Queries
@@ -9,9 +10,7 @@ namespace Cinemark.Unit.Tests.Application.Events.Queries
         [Fact]
         public void GetFilmeQuery()
         {
-            var getFilmeQuery = new GetFilmeQuery()
-            {                
-            };
+            var getFilmeQuery = new Mock<GetFilmeQuery>();
 
             getFilmeQuery.Should().NotBeNull();
         }
