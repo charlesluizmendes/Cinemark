@@ -3,7 +3,7 @@ using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace Cinemark.Unit.Tests.Application.Events.Queries
+namespace Cinemark.Unit.Tests.Application.Queries
 {
     public class GetFilmeQueryTest
     {

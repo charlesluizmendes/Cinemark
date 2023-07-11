@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Cinemark.Domain.Commom
+namespace Cinemark.Domain.Core.Commom
 {
     public abstract class Enumeration : IComparable
     {

@@ -1,11 +1,10 @@
 ﻿using Cinemark.Application.Commands;
 using Cinemark.Domain.AggregatesModels.FilmeAggregate;
-using Cinemark.Domain.Commom;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace Cinemark.Unit.Tests.Application.Events.Commands
+namespace Cinemark.Unit.Tests.Application.Commands
 {
     public class CreateFilmeCommandTest
     {

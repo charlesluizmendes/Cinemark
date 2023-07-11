@@ -1,4 +1,4 @@
-﻿namespace Cinemark.Domain.Commom
+﻿namespace Cinemark.Domain.Core.Commom
 {
     public abstract class ValueObject
     {

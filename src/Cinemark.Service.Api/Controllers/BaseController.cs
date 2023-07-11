@@ -1,4 +1,4 @@
-﻿using Cinemark.Domain.Commom;
+﻿using Cinemark.Domain.Core.Commom;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinemark.Service.Api.Controllers
