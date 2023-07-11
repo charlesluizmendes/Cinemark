@@ -102,8 +102,7 @@ Para criar um Token JWT e utilizar nas requições dos endpoints de Filmes, util
 ```
 curl -X 'POST' \
   'https://localhost:7189/api/Token' \
-  -H 'accept: text/plain'
-\
+  -H 'accept: text/plain' \
   -H 'Content-Type: application/json' \
   -d '{
   "email": "teste@cinemark.com",
