@@ -1,5 +1,6 @@
 ﻿using Cinemark.Application.Dto;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace Cinemark.Unit.Tests.Application.Dto
@@ -9,7 +10,7 @@ namespace Cinemark.Unit.Tests.Application.Dto
         [Fact]
         public void CreateFilmeDto()
         {
-            var request = new CreateFilmeDto()
+            var request = new CreateFilmeDto
             {
                 Nome = "E o Vento Levou",
                 Categoria = "Drama",

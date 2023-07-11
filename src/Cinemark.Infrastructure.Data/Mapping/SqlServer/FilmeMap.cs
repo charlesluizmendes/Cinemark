@@ -1,4 +1,4 @@
-﻿using Cinemark.Domain.Models;
+﻿using Cinemark.Domain.AggregatesModels.FilmeAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,7 +10,7 @@ namespace Cinemark.Infrastructure.Data.Mapping.SqlServer
         {
             builder.ToTable("Filme");
 
-            builder.HasKey(c => c.Id);
+            builder.Property(c => c.Id).IsRequired();
             builder.Property(p => p.Nome).IsRequired();
             builder.Property(p => p.Categoria).IsRequired();
             builder.Property(p => p.FaixaEtaria).IsRequired();

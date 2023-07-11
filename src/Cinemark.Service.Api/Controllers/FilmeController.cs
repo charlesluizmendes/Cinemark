@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using Cinemark.Application.Dto;
-using Cinemark.Application.Events.Commands;
-using Cinemark.Application.Events.Queries;
-using Cinemark.Domain.Models;
-using Cinemark.Domain.Models.Commom;
+using Cinemark.Application.Queries;
+using Cinemark.Application.Commands;
+using Cinemark.Domain.Commom;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,24 +26,21 @@ namespace Cinemark.Service.Api.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ResultData<FilmeDto>>> Get()
+        public async Task<ActionResult<ResultData<IEnumerable<FilmeDto>>>> Get()
         {
-            var filmes = await _mediator.Send(new GetFilmeQuery { });
+            var filmes = await _mediator.Send(new GetFilmeQuery());
 
-            return HttpResult(_mapper.Map<ResultData<IEnumerable<FilmeDto>>>(filmes));
+            return CustomResponse(_mapper.Map<IEnumerable<FilmeDto>>(filmes));
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ResultData<FilmeDto>>> Get(int id)
+        public async Task<ActionResult<ResultData<FilmeDto>>> Get(Guid id)
         {
-            var filme = await _mediator.Send(new GetFilmeByIdQuery
-            {
-                Id = id
-            });
+            var filme = await _mediator.Send(new GetFilmeByIdQuery(id));
 
-            return HttpResult(_mapper.Map<ResultData<FilmeDto>>(filme));
+            return CustomResponse(_mapper.Map<FilmeDto>(filme));
         }
 
         [HttpPost]
@@ -52,12 +48,9 @@ namespace Cinemark.Service.Api.Controllers
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ResultData<FilmeDto>>> Post(CreateFilmeDto request)
         {
-            var filme = await _mediator.Send(new CreateFilmeCommand
-            {
-                Filme = _mapper.Map<Filme>(request)
-            });
+            await _mediator.Send(_mapper.Map<CreateFilmeCommand>(request));
 
-            return HttpResult(_mapper.Map<ResultData<FilmeDto>>(filme));
+            return CustomResponse();
         }
 
         [HttpPut]
@@ -65,12 +58,9 @@ namespace Cinemark.Service.Api.Controllers
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ResultData<FilmeDto>>> Put(UpdateFilmeDto request)
         {
-            var filme = await _mediator.Send(new UpdateFilmeCommand
-            {
-                Filme = _mapper.Map<Filme>(request)
-            });
+            await _mediator.Send(_mapper.Map<UpdateFilmeCommand>(request));
 
-            return HttpResult(_mapper.Map<ResultData<FilmeDto>>(filme));
+            return CustomResponse();
         }
 
         [HttpDelete("{id}")]
@@ -78,17 +68,9 @@ namespace Cinemark.Service.Api.Controllers
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<FilmeDto>> Delete(int id)
         {
-            var filme = await _mediator.Send(new GetFilmeByIdQuery
-            {
-                Id = id
-            });
+            await _mediator.Send(_mapper.Map<DeleteFilmeCommand>(id));            
 
-            await _mediator.Send(new DeleteFilmeCommand
-            {
-                Filme = filme.Data
-            });
-
-            return HttpResult(_mapper.Map<ResultData<FilmeDto>>(filme));
+            return CustomResponse();
         }
     }
 }

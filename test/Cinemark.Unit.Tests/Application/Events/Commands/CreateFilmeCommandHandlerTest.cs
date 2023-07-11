@@ -1,8 +1,5 @@
-﻿using Cinemark.Application.Events.Commands;
-using Cinemark.Domain.Constants;
-using Cinemark.Domain.Interfaces.EventBus;
-using Cinemark.Domain.Interfaces.Repositories;
-using Cinemark.Domain.Models;
+﻿using Cinemark.Application.Commands;
+using Cinemark.Domain.AggregatesModels.FilmeAggregate;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -14,33 +11,21 @@ namespace Cinemark.Unit.Tests.Application.Events.Commands
         [Fact]
         public async void CreateFilmeCommandHandler()
         {
-            var filme = new Filme()
-            {
-                Id = 1,
-                Nome = "E o Vento Levou",
-                Categoria = "Drama",
-                FaixaEtaria = 12,
-                DataLancamento = new DateTime(1971, 10, 3)
-            };            
+            var filme = new Mock<Filme>(new Guid("30eb581a-4373-4a49-93a3-6fba8aae2044"), "E o Vento Levou", "Drama", 12, new DateTime(1971, 10, 3));
+            filme.Setup(x => x.Id).Returns(new Guid("30eb581a-4373-4a49-93a3-6fba8aae2044"));
+            var cancellationToken = true;
 
-            var filmeRepositoryMock = new Mock<IFilmeRepository>();
-            filmeRepositoryMock.Setup(x => x.InsertAsync(It.IsAny<Filme>()))
-                .ReturnsAsync(filme);
+            var filmeRepository = new Mock<IFilmeRepository>();
+            filmeRepository.Setup(x => x.InsertAsync(It.IsAny<Filme>()));
+            filmeRepository.Setup(x => x.UnitOfWork.SaveEntitiesAsync(It.IsAny<CancellationToken>()))
+                .ReturnsAsync(cancellationToken);            
 
-            var filmeEventBusMock = new Mock<IFilmeEventBus>();
-            filmeEventBusMock.Setup(x => x.PublisherAsync(typeof(Filme).Name + QueueConstants.Insert, It.IsAny<Filme>()))
-                .Returns(Task.CompletedTask);
-
-            var command = new CreateFilmeCommand() { Filme = filme };
-            var handler = new Mock<CreateFilmeCommandHandler>(filmeRepositoryMock.Object, filmeEventBusMock.Object);
+            var command = new Mock<CreateFilmeCommand>(filme.Object.Nome, filme.Object.Categoria, filme.Object.FaixaEtaria, filme.Object.DataLancamento);
+            var handler = new Mock<CreateFilmeCommandHandler>(filmeRepository.Object);
            
-            var result = await handler.Object.Handle(command, new CancellationToken());
+            var result = await handler.Object.Handle(command.Object, new CancellationToken());
 
-            result.Data.Id.Should().Be(1);
-            result.Data.Nome.Should().Be("E o Vento Levou");
-            result.Data.Categoria.Should().Be("Drama");
-            result.Data.FaixaEtaria.Should().Be(12);
-            result.Data.DataLancamento.Should().Be(new DateTime(1971, 10, 3));
+            result.Should().Be(true);            
         }
     }
 }

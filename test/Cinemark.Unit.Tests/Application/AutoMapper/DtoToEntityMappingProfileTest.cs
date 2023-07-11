@@ -1,21 +1,22 @@
 ﻿using AutoMapper;
 using Cinemark.Application.AutoMapper;
+using Cinemark.Application.Commands;
 using Cinemark.Application.Dto;
-using Cinemark.Domain.Models;
 using FluentAssertions;
+using Moq;
 using Xunit;
 
 namespace Cinemark.Unit.Tests.Application.AutoMapper
 {
     public class DtoToEntityMappingProfileTest
-    {
+    {       
         [Fact]
         public void CreateFilmeDto()
         {
             var config = new MapperConfiguration(cfg => cfg.AddProfile<DtoToEntityMappingProfile>());
             var mapper = config.CreateMapper();
 
-            var request = new CreateFilmeDto()
+            var filme = new CreateFilmeDto()
             {
                 Nome = "E o Vento Levou",
                 Categoria = "Drama",
@@ -23,7 +24,7 @@ namespace Cinemark.Unit.Tests.Application.AutoMapper
                 DataLancamento = new DateTime(1971, 10, 3)
             };
 
-            var result = mapper.Map<CreateFilmeDto, Filme>(request);
+            var result = mapper.Map<CreateFilmeDto, CreateFilmeCommand>(filme);
 
             result.Nome.Should().Be("E o Vento Levou");
             result.Categoria.Should().Be("Drama");

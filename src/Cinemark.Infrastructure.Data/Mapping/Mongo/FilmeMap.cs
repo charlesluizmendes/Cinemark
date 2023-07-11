@@ -1,4 +1,4 @@
-﻿using Cinemark.Domain.Models;
+﻿using Cinemark.Domain.AggregatesModels.FilmeAggregate;
 using MongoDB.Bson.Serialization;
 
 namespace Cinemark.Infrastructure.Data.Mapping.Mongo
@@ -7,16 +7,18 @@ namespace Cinemark.Infrastructure.Data.Mapping.Mongo
     {
         public static void Configure()
         {
-            BsonClassMap.RegisterClassMap<Filme>(map =>
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Filme)))
             {
-                map.AutoMap();
-                map.SetIgnoreExtraElements(true);
-                map.MapIdMember(x => x.Id).SetIsRequired(true);
-                map.MapProperty(x => x.Nome).SetIsRequired(true);
-                map.MapProperty(x => x.Categoria).SetIsRequired(true);
-                map.MapProperty(x => x.FaixaEtaria).SetIsRequired(true);
-                map.MapProperty(x => x.DataLancamento).SetIsRequired(true);
-            });
+                BsonClassMap.RegisterClassMap<Filme>(map =>
+                {
+                    map.AutoMap();
+                    map.SetIgnoreExtraElements(true);
+                    map.MapProperty(x => x.Nome).SetIsRequired(true);
+                    map.MapProperty(x => x.Categoria).SetIsRequired(true);
+                    map.MapProperty(x => x.FaixaEtaria).SetIsRequired(true);
+                    map.MapProperty(x => x.DataLancamento).SetIsRequired(true);
+                });
+            }                
         }
     }
 }

@@ -1,35 +1,25 @@
-﻿using Cinemark.Domain.Interfaces.Repositories;
-using Cinemark.Domain.Models;
+﻿using Cinemark.Domain.AggregatesModels.UsuarioAggregate;
+using Cinemark.Domain.Commom;
 using Cinemark.Infrastructure.Data.Context;
 using MongoDB.Driver;
 
 namespace Cinemark.Infrastructure.Data.Repositories
 {
-    public class UsuarioRepository : BaseRepository<Usuario>, IUsuarioRepository
+    public class UsuarioRepository : IUsuarioRepository
     {
         private readonly MongoContext _mongoContext;
-        private IMongoCollection<Usuario> _mongoCollection;
-        private readonly SqlServerContext _sqlServercontext;
+        private readonly SqlServerContext _sqlServerContext;
+        public IUnitOfWork UnitOfWork => _sqlServerContext;
 
-        public UsuarioRepository(MongoContext mongoContext,
-            SqlServerContext sqlServercontext)
-            : base(mongoContext, sqlServercontext)
+        public UsuarioRepository(MongoContext mongoContext, SqlServerContext sqlServerContext)
         {
-            _mongoContext = mongoContext;
-            _mongoCollection = _mongoContext.GetCollection<Usuario>(typeof(Usuario).Name);
-            _sqlServercontext = sqlServercontext;
+            _mongoContext = mongoContext ?? throw new ArgumentNullException(nameof(mongoContext));
+            _sqlServerContext = sqlServerContext ?? throw new ArgumentNullException(nameof(sqlServerContext));
         }
 
-        public async Task<Usuario> GetUsuarioByEmailAndSenhaAsync(Usuario usuario)
+        public async Task<Usuario> GetUsuarioByEmailAndSenhaAsync(string email, string senha)
         {
-            try
-            {
-                return await _mongoCollection.Find(x => x.Email == usuario.Email && x.Senha == usuario.Senha).FirstOrDefaultAsync();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return await _mongoContext.GetCollection<Usuario>().Find(x => x.Email == email && x.Senha == senha).FirstOrDefaultAsync();
         }
     }
 }
