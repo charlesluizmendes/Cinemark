@@ -1,4 +1,4 @@
-﻿using Cinemark.Domain.Interfaces.Repositories;
+﻿using Cinemark.Domain.AggregatesModels.FilmeAggregate;
 using Cinemark.Domain.Models;
 using FluentAssertions;
 using Moq;

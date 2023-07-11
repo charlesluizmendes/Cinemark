@@ -1,7 +1,7 @@
-﻿using Cinemark.Application.Events.Commands;
+﻿using Cinemark.Application.Commands;
+using Cinemark.Domain.AggregatesModels.FilmeAggregate;
 using Cinemark.Domain.Constants;
 using Cinemark.Domain.Interfaces.EventBus;
-using Cinemark.Domain.Interfaces.Repositories;
 using Cinemark.Domain.Models;
 using FluentAssertions;
 using Moq;

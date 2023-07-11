@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Cinemark.Application.Commands;
 using Cinemark.Application.Dto;
-using Cinemark.Domain.Models;
 
 namespace Cinemark.Application.AutoMapper
 {
@@ -8,9 +8,9 @@ namespace Cinemark.Application.AutoMapper
     {
         public DtoToEntityMappingProfile()
         {            
-            CreateMap<CreateFilmeDto, Filme>();
-            CreateMap<UpdateFilmeDto, Filme>(); 
-            CreateMap<GetTokenDto, Usuario>();
+            CreateMap<CreateFilmeDto, CreateFilmeCommand>();
+            CreateMap<UpdateFilmeDto, UpdateFilmeCommand>(); 
+            CreateMap<CreateTokenDto, CreateTokenByEmailAndSenhaCommand>();
         }
     }
 }

@@ -1,4 +1,4 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
@@ -7,19 +7,21 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Cinemark.Service.Api/Cinemark.Service.Api.csproj", "Cinemark.Service.Api/"]
-COPY ["Cinemark.Infrastructure.IoC/Cinemark.Infrastructure.IoC.csproj", "Cinemark.Infrastructure.IoC/"]
-COPY ["Cinemark.Domain/Cinemark.Domain.csproj", "Cinemark.Domain/"]
-COPY ["Cinemark.Infrastructure.Identity/Cinemark.Infrastructure.Identity.csproj", "Cinemark.Infrastructure.Identity/"]
-COPY ["Cinemark.Application/Cinemark.Application.csproj", "Cinemark.Application/"]
-COPY ["Cinemark.Infrastructure.Data/Cinemark.Infrastructure.Data.csproj", "Cinemark.Infrastructure.Data/"]
-RUN dotnet restore "Cinemark.Service.Api/Cinemark.Service.Api.csproj"
+COPY ["src/Cinemark.Service.Api/Cinemark.Service.Api.csproj", "src/Cinemark.Service.Api/"]
+COPY ["src/Cinemark.Infrastructure.IoC/Cinemark.Infrastructure.IoC.csproj", "src/Cinemark.Infrastructure.IoC/"]
+COPY ["src/Cinemark.Application/Cinemark.Application.csproj", "src/Cinemark.Application/"]
+COPY ["src/Cinemark.Domain/Cinemark.Domain.csproj", "src/Cinemark.Domain/"]
+COPY ["src/Cinemark.Infrastructure.Data/Cinemark.Infrastructure.Data.csproj", "src/Cinemark.Infrastructure.Data/"]
+COPY ["src/Cinemark.Infrastructure.EventBus/Cinemark.Infrastructure.EventBus.csproj", "src/Cinemark.Infrastructure.EventBus/"]
+COPY ["src/Cinemark.Infrastructure.HostedServices/Cinemark.Infrastructure.HostedServices.csproj", "src/Cinemark.Infrastructure.HostedServices/"]
+COPY ["src/Cinemark.Infrastructure.Identity/Cinemark.Infrastructure.Identity.csproj", "src/Cinemark.Infrastructure.Identity/"]
+RUN dotnet restore "src/Cinemark.Service.Api/Cinemark.Service.Api.csproj"
 COPY . .
-WORKDIR "/src/Cinemark.Service.Api"
+WORKDIR "/src/src/Cinemark.Service.Api"
 RUN dotnet build "Cinemark.Service.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Cinemark.Service.Api.csproj" -c Release -o /app/publish
+RUN dotnet publish "Cinemark.Service.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app

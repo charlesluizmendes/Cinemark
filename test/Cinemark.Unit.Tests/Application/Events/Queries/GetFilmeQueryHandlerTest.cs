@@ -1,5 +1,5 @@
-﻿using Cinemark.Application.Events.Queries;
-using Cinemark.Domain.Interfaces.Repositories;
+﻿using Cinemark.Application.Queries;
+using Cinemark.Domain.AggregatesModels.FilmeAggregate;
 using Cinemark.Domain.Models;
 using Cinemark.Domain.Models.Commom;
 using FluentAssertions;
