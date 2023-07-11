@@ -96,17 +96,19 @@ Password: guest
 
 O projeto possui Documentação pelo Swagger, portanto possui os seguintes endpoints:
 
-### GET Token
+### POST Token
 
-Para obter um Token JWT e utilizar das requições dos endpoints de Filmes, utilize o seguinte Email e Senha:
+Para criar um Token JWT e utilizar nas requições dos endpoints de Filmes, utilze o endpoint abaixo:
 ```
-Email: teste@cinemark.com 
-Senha: 12345
-```
-```
-curl -X 'GET' \
-  'https://localhost:7189/api/Token?Email=teste%40cinemark.com&Senha=12345' \
+curl -X 'POST' \
+  'https://localhost:7189/api/Token' \
   -H 'accept: text/plain'
+\
+  -H 'Content-Type: application/json' \
+  -d '{
+  "email": "teste@cinemark.com",
+  "senha": "12345" 
+}'
 ```
 
 ### GET Filmes
