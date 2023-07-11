@@ -1,4 +1,4 @@
-﻿using Cinemark.Domain.Commom;
+﻿using Cinemark.Domain.Core.Commom;
 
 namespace Cinemark.Domain.AggregatesModels.FilmeAggregate
 {

@@ -2,10 +2,10 @@
 using Cinemark.Application.Dto;
 using Cinemark.Application.Queries;
 using Cinemark.Application.Commands;
-using Cinemark.Domain.Commom;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Cinemark.Domain.Core.Commom;
 
 namespace Cinemark.Service.Api.Controllers
 {

@@ -1,5 +1,5 @@
 ﻿using Cinemark.Domain.AggregatesModels.UsuarioAggregate;
-using Cinemark.Domain.Commom;
+using Cinemark.Domain.Core.Commom;
 using Cinemark.Infrastructure.Data.Context;
 using MongoDB.Driver;
 

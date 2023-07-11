@@ -1,4 +1,4 @@
-﻿using Cinemark.Domain.Commom;
+﻿using Cinemark.Domain.Core.Commom;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;

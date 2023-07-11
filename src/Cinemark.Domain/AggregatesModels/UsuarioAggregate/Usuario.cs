@@ -1,5 +1,5 @@
-﻿using Cinemark.Domain.Commom;
-using Cinemark.Domain.Exceptions;
+﻿using Cinemark.Domain.Core.Commom;
+using Cinemark.Domain.Core.Exceptions;
 
 namespace Cinemark.Domain.AggregatesModels.UsuarioAggregate
 {

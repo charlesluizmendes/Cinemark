@@ -1,4 +1,4 @@
-﻿namespace Cinemark.Domain.Exceptions
+﻿namespace Cinemark.Domain.Core.Exceptions
 {
     public class DomainException : Exception
     {

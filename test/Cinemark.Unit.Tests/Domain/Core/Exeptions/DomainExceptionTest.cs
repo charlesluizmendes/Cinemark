@@ -1,9 +1,9 @@
-﻿using Cinemark.Domain.Exceptions;
+﻿using Cinemark.Domain.Core.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace Cinemark.Unit.Tests.Domain.Exeptions
+namespace Cinemark.Unit.Tests.Domain.Core.Exeptions
 {
     public class DomainExceptionTest
     {
