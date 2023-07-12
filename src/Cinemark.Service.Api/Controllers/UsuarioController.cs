@@ -20,14 +20,14 @@ namespace Cinemark.Service.Api.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost]
+        [HttpPost("CreateTokenByEmailAndSenhaAsync")]
         [ProducesResponseType(typeof(ResultData<TokenDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResultData<TokenDto>), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ResultData<TokenDto>>> Post(CreateTokenDto request)
+        public async Task<ActionResult<ResultData<TokenDto>>> CreateTokenByEmailAndSenhaAsync(CreateTokenDto request)
         {
             var token = await _mediator.Send(_mapper.Map<CreateTokenByEmailAndSenhaCommand>(request));
 
-            return Ok(_mapper.Map<TokenDto>(token));
+            return CustomResponse(_mapper.Map<TokenDto>(token));
         }
     }
 }

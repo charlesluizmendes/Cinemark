@@ -23,50 +23,50 @@ namespace Cinemark.Service.Api.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet("GetFilmesAsync")]
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ResultData<IEnumerable<FilmeDto>>>> Get()
+        public async Task<ActionResult<ResultData<IEnumerable<FilmeDto>>>> GetFilmesAsync()
         {
             var filmes = await _mediator.Send(new GetFilmeQuery());
 
             return CustomResponse(_mapper.Map<IEnumerable<FilmeDto>>(filmes));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetFilmeByIdAsync/{id}")]
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ResultData<FilmeDto>>> Get(Guid id)
+        public async Task<ActionResult<ResultData<FilmeDto>>> GetFilmeByIdAsync(Guid id)
         {
             var filme = await _mediator.Send(new GetFilmeByIdQuery(id));
 
             return CustomResponse(_mapper.Map<FilmeDto>(filme));
         }
 
-        [HttpPost]
+        [HttpPost("CreateFilmeAsync")]
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ResultData<FilmeDto>>> Post(CreateFilmeDto request)
+        public async Task<ActionResult<ResultData<FilmeDto>>> CreateFilmeAsync(CreateFilmeDto request)
         {
             await _mediator.Send(_mapper.Map<CreateFilmeCommand>(request));
 
             return CustomResponse();
         }
 
-        [HttpPut]
+        [HttpPut("UpdateFilmeAsync")]
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ResultData<FilmeDto>>> Put(UpdateFilmeDto request)
+        public async Task<ActionResult<ResultData<FilmeDto>>> UpdateFilmeAsync(UpdateFilmeDto request)
         {
             await _mediator.Send(_mapper.Map<UpdateFilmeCommand>(request));
 
             return CustomResponse();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteFilmeByIdAsync/{id}")]
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<FilmeDto>> Delete(int id)
+        public async Task<ActionResult<FilmeDto>> DeleteFilmeByIdAsync(int id)
         {
             await _mediator.Send(_mapper.Map<DeleteFilmeCommand>(id));            
 
