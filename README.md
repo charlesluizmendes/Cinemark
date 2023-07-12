@@ -101,7 +101,7 @@ O projeto possui Documentação pelo Swagger, portanto possui os seguintes endpo
 Para criar um Token JWT e utilizar nas requições dos endpoints de Filmes, utilze o endpoint abaixo:
 ```
 curl -X 'POST' \
-  'https://localhost:7189/api/Usuario' \
+  'https://localhost:7189/api/Usuario/CreateTokenByEmailAndSenhaAsync' \
   -H 'accept: text/plain' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -115,7 +115,7 @@ curl -X 'POST' \
 Para obter todos os Filmes utilze o endpoint abaixo:
 ```
 curl -X 'GET' \
-  'https://localhost:7189/api/Filme' \
+  'https://localhost:7189/api/Filme/GetFilmesAsync' \
   -H 'accept: text/plain' \
   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0ZUBjaW5lbWFyay5jb20iLCJleHAiOjE2NTYwMjc0MjQsImlzcyI6ImNoYXJsZXMubWVuZGVzIiwiYXVkIjoiY2hhcmxlcy5tZW5kZXMifQ.UubI-d6hL1KsqZiZxSoDbLHL2PG7k83qiS2TAgpkIWA'
 ```
@@ -125,7 +125,7 @@ curl -X 'GET' \
 Para obter um Filme pelo seu Id utilze o endpoint abaixo:
 ```
 curl -X 'GET' \
-  'https://localhost:7189/api/Filme/1' \
+  'https://localhost:7189/api/Filme/GetFilmeByIdAsync/1' \
   -H 'accept: text/plain' \
   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0ZUBjaW5lbWFyay5jb20iLCJleHAiOjE2NTYwMjc0MjQsImlzcyI6ImNoYXJsZXMubWVuZGVzIiwiYXVkIjoiY2hhcmxlcy5tZW5kZXMifQ.UubI-d6hL1KsqZiZxSoDbLHL2PG7k83qiS2TAgpkIWA'
 ```
@@ -135,7 +135,7 @@ curl -X 'GET' \
 Para criar um Filme utilze o endpoint abaixo:
 ```
 curl -X 'POST' \
-  'https://localhost:7189/api/Filme' \
+  'https://localhost:7189/api/Filme/CreateFilmeAsync' \
   -H 'accept: text/plain' \
   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0ZUBjaW5lbWFyay5jb20iLCJleHAiOjE2NTYwMjc0MjQsImlzcyI6ImNoYXJsZXMubWVuZGVzIiwiYXVkIjoiY2hhcmxlcy5tZW5kZXMifQ.UubI-d6hL1KsqZiZxSoDbLHL2PG7k83qiS2TAgpkIWA' \
   -H 'Content-Type: application/json' \
@@ -152,7 +152,7 @@ curl -X 'POST' \
 Para editar um Filme utilze o endpoint abaixo:
 ```
 curl -X 'PUT' \
-  'https://localhost:7189/api/Filme' \
+  'https://localhost:7189/api/Filme/UpdateFilmeAsync' \
   -H 'accept: text/plain' \
   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0ZUBjaW5lbWFyay5jb20iLCJleHAiOjE2NTYwMjc0MjQsImlzcyI6ImNoYXJsZXMubWVuZGVzIiwiYXVkIjoiY2hhcmxlcy5tZW5kZXMifQ.UubI-d6hL1KsqZiZxSoDbLHL2PG7k83qiS2TAgpkIWA' \
   -H 'Content-Type: application/json' \
@@ -170,7 +170,7 @@ curl -X 'PUT' \
 Para deletar um Filme utilze o endpoint abaixo:
 ```
 curl -X 'DELETE' \
-  'https://localhost:7189/api/Filme/1' \
+  'https://localhost:7189/api/Filme/DeleteFilmeByIdAsync/1' \
   -H 'accept: text/plain' \
   -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJ0ZXN0ZUBjaW5lbWFyay5jb20iLCJleHAiOjE2NTYwMjc0MjQsImlzcyI6ImNoYXJsZXMubWVuZGVzIiwiYXVkIjoiY2hhcmxlcy5tZW5kZXMifQ.UubI-d6hL1KsqZiZxSoDbLHL2PG7k83qiS2TAgpkIWA'
 ```
