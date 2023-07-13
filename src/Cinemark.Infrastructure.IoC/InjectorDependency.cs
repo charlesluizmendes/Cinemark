@@ -1,11 +1,13 @@
-﻿using Cinemark.Application.Commands;
+﻿using Cinemark.Application.CommandHandlers;
 using Cinemark.Application.Dto;
-using Cinemark.Application.Events;
-using Cinemark.Application.Queries;
+using Cinemark.Application.EventHandlers;
+using Cinemark.Application.QueryHandlers;
 using Cinemark.Application.Validators;
 using Cinemark.Domain.AggregatesModels.FilmeAggregate;
 using Cinemark.Domain.AggregatesModels.UsuarioAggregate;
-using Cinemark.Domain.Events;
+using Cinemark.Domain.Contracts.Commands;
+using Cinemark.Domain.Contracts.Events;
+using Cinemark.Domain.Contracts.Queries;
 using Cinemark.Infrastructure.Data.Context;
 using Cinemark.Infrastructure.Data.Repositories;
 using Cinemark.Infrastructure.EventBus;

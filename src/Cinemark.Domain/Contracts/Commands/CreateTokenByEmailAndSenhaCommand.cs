@@ -1,7 +1,7 @@
 ﻿using Cinemark.Domain.AggregatesModels.UsuarioAggregate;
 using MediatR;
 
-namespace Cinemark.Application.Commands
+namespace Cinemark.Domain.Contracts.Commands
 {
     public class CreateTokenByEmailAndSenhaCommand : IRequest<Token>
     {

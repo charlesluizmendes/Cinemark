@@ -1,7 +1,8 @@
 ﻿using Cinemark.Domain.AggregatesModels.FilmeAggregate;
+using Cinemark.Domain.Contracts.Queries;
 using MediatR;
 
-namespace Cinemark.Application.Queries
+namespace Cinemark.Application.QueryHandlers
 {
     public class GetFilmeByIdQueryHandler : IRequestHandler<GetFilmeByIdQuery, Filme>
     {

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Cinemark.Application.Dto;
-using Cinemark.Application.Queries;
-using Cinemark.Application.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Cinemark.Domain.Core.Commom;
+using Cinemark.Domain.Contracts.Commands;
+using Cinemark.Domain.Contracts.Queries;
 
 namespace Cinemark.Service.Api.Controllers
 {
