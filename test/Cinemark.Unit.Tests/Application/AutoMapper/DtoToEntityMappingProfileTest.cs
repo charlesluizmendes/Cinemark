@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Cinemark.Application.AutoMapper;
-using Cinemark.Application.Commands;
 using Cinemark.Application.Dto;
+using Cinemark.Domain.Contracts.Commands;
 using FluentAssertions;
 using Moq;
 using Xunit;

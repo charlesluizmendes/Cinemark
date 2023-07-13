@@ -1,8 +1,9 @@
 ﻿using Cinemark.Domain.AggregatesModels.FilmeAggregate;
-using Cinemark.Domain.Events;
+using Cinemark.Domain.Contracts.Commands;
+using Cinemark.Domain.Contracts.Events;
 using MediatR;
 
-namespace Cinemark.Application.Commands
+namespace Cinemark.Application.CommandHandlers
 {
     public class CreateFilmeCommandHandler : IRequestHandler<CreateFilmeCommand, bool>
     {

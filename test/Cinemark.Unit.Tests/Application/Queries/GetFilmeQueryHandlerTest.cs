@@ -1,5 +1,6 @@
-﻿using Cinemark.Application.Queries;
+﻿using Cinemark.Application.QueryHandlers;
 using Cinemark.Domain.AggregatesModels.FilmeAggregate;
+using Cinemark.Domain.Contracts.Queries;
 using FluentAssertions;
 using Moq;
 using Xunit;

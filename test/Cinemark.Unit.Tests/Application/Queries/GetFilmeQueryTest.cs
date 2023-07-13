@@ -1,4 +1,4 @@
-﻿using Cinemark.Application.Queries;
+﻿using Cinemark.Domain.Contracts.Queries;
 using FluentAssertions;
 using Moq;
 using Xunit;
