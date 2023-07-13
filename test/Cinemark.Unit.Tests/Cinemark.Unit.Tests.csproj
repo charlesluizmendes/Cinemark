@@ -28,8 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Events\" />
-    <Folder Include="Domain\Events\" />
+    <Folder Include="Application\EventHandlers\" />
+    <Folder Include="Domain\Contracts\Events\" />
+    <Folder Include="Domain\Contracts\" />
     <Folder Include="Infrastructure\HostedServices\" />
     <Folder Include="Infrastructure\Identity\" />
   </ItemGroup>

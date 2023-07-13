@@ -4,7 +4,7 @@ using FluentAssertions;
 using Moq;
 using Xunit;
 
-namespace Cinemark.Unit.Tests.Application.Commands
+namespace Cinemark.Unit.Tests.Application.CommandHandlers
 {
     public class CreateFilmeCommandTest
     {
