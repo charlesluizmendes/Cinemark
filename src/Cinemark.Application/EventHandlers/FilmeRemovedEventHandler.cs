@@ -1,8 +1,8 @@
 ﻿using Cinemark.Domain.AggregatesModels.FilmeAggregate;
-using Cinemark.Domain.Events;
+using Cinemark.Domain.Contracts.Events;
 using MediatR;
 
-namespace Cinemark.Application.Events
+namespace Cinemark.Application.EventHandlers
 {
     public class FilmeRemovedEventHandler : 
         INotificationHandler<FilmeRemovedEvent>

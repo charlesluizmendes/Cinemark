@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Cinemark.Application.Commands;
 using Cinemark.Application.Dto;
+using Cinemark.Domain.Contracts.Commands;
 
 namespace Cinemark.Application.AutoMapper
 {

@@ -1,14 +1,14 @@
 ﻿using Cinemark.Domain.AggregatesModels.FilmeAggregate;
 using MediatR;
 
-namespace Cinemark.Domain.Events
+namespace Cinemark.Domain.Contracts.Events
 {
-    public class FilmeCreatedEvent : 
+    public class FilmeUpdatedEvent :
         INotification
     {
         public Filme Filme { get; }
 
-        public FilmeCreatedEvent(Filme filme)
+        public FilmeUpdatedEvent(Filme filme)
         {
             Filme = filme;
         }
