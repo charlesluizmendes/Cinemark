@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Cinemark.Service.Api.Controllers.v1
 {
     [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiVersion("1")]
+    [ApiVersion("1.0")]
     public class UsuarioController : BaseController
     {
         private readonly IMapper _mapper;
