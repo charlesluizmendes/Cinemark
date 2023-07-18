@@ -5,9 +5,10 @@ using Cinemark.Domain.Core.Commom;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cinemark.Service.Api.Controllers
+namespace Cinemark.Service.Api.Controllers.v1
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1")]
     public class UsuarioController : BaseController
     {
         private readonly IMapper _mapper;
