@@ -7,10 +7,11 @@ using Cinemark.Domain.Core.Commom;
 using Cinemark.Domain.Contracts.Commands;
 using Cinemark.Domain.Contracts.Queries;
 
-namespace Cinemark.Service.Api.Controllers
+namespace Cinemark.Service.Api.Controllers.v1
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1")]
     public class FilmeController : BaseController
     {
         private readonly IMapper _mapper;
@@ -68,7 +69,7 @@ namespace Cinemark.Service.Api.Controllers
         [ProducesResponseType(typeof(ResultData<FilmeDto>), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<FilmeDto>> DeleteFilmeByIdAsync(int id)
         {
-            await _mediator.Send(_mapper.Map<DeleteFilmeCommand>(id));            
+            await _mediator.Send(_mapper.Map<DeleteFilmeCommand>(id));
 
             return CustomResponse();
         }
