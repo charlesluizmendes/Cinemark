@@ -104,6 +104,8 @@ builder.Services.Configure<ApiBehaviorOptions>(o =>
 
 // Version
 
+builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddApiVersioning(config =>
 {
     config.ApiVersionReader = new UrlSegmentApiVersionReader();
@@ -118,10 +120,12 @@ builder.Services.AddVersionedApiExplorer(option =>
 
 // Swagger
 
-builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.OperationFilter<SwaggerDefaultValues>();
+    options.ResolveConflictingActions(conflict => conflict.First());
+
+    foreach (var file in Directory.GetFiles(AppContext.BaseDirectory, "*.xml"))
+        options.IncludeXmlComments(file);
 
     options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
     {
@@ -144,6 +148,8 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -153,6 +159,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options => 
     {
+        // Version
+
         var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
         foreach (var description in apiVersionDescriptionProvider.ApiVersionDescriptions)
