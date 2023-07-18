@@ -11,7 +11,7 @@ namespace Cinemark.Service.Api.Controllers.v1
 {
     [Authorize]
     [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiVersion("1")]
+    [ApiVersion("1.0")]
     public class FilmeController : BaseController
     {
         private readonly IMapper _mapper;
