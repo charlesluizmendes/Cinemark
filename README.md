@@ -57,7 +57,7 @@ INSERT INTO [dbo].[Usuario]
            ,[DataCriacao])
      VALUES
            ('330fc7e6-4bff-467b-b6d3-4d11ff53849f'
-           'Teste'
+           ,'Teste'
            ,'teste@cinemark.com'
            ,'12345'
            ,GETDATE())
